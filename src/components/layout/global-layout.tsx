@@ -1,19 +1,21 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { CategoryNav } from "./header/categoryNav";
+import TempJjandolLogo from "../ui/tempJjandolLogo";
 
 export default function GlobalLayout() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50/50">
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
         <nav className="container flex items-center justify-between h-16 px-4 mx-auto">
-          <strong className="text-xl font-bold text-orange-600">
-            JJandol Net
-          </strong>
+          <TempJjandolLogo />
 
           <div className="flex items-center gap-2">
-            <button className=" cursor-pointer px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900">
+            <Link
+              to="/login"
+              className="cursor-pointer px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+            >
               로그인 및 회원가입
-            </button>
+            </Link>
           </div>
         </nav>
       </header>
