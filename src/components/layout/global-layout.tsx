@@ -1,8 +1,26 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { CategoryNav } from "./header/categoryNav";
 import TempJjandolLogo from "../ui/tempJjandolLogo";
+import {
+  getIsLogInState,
+  authlogoutActions,
+  useLogout,
+} from "../../store/authStore";
 
 export default function GlobalLayout() {
+  const navigate = useNavigate();
+  //로그아웃 리렌더링을 위한 정적방식 아닌 셀렉터 방식.
+  const logout = useLogout();
+  const loginState = getIsLogInState();
+
+  const handleLogout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      authlogoutActions.logout();
+      //logout();
+      //navigate("/", { replace: true });
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50/50">
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
@@ -10,12 +28,21 @@ export default function GlobalLayout() {
           <TempJjandolLogo />
 
           <div className="flex items-center gap-2">
-            <Link
-              to="/login"
-              className="cursor-pointer px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
-            >
-              로그인 및 회원가입
-            </Link>
+            {loginState ? (
+              <button
+                onClick={handleLogout}
+                className="cursor-pointer px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+              >
+                로그아웃
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="cursor-pointer px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+              >
+                로그인 및 회원가입
+              </Link>
+            )}
           </div>
         </nav>
       </header>

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import type { User } from "../../types";
+import type { User } from "../../types/auth";
 import { getMaxBirthDate } from "../../utils/date";
 import TempJjandolLogo from "../../components/ui/tempJjandolLogo";
 import { useSignUp } from "../../hooks/mutations/auth/use-sign-up";
@@ -13,8 +13,8 @@ export default function SignUpPage() {
       alert("회원가입이 완료되었습니다!");
       navigate("/login", { replace: true });
     },
-    onError: (error) => {
-      alert("회원가입에 실패했습니다. status : " + error.message);
+    onError: () => {
+      alert("회원가입에 실패했습니다. 관리자 문의 : kiwo412@google.com");
     },
   });
 
@@ -26,7 +26,6 @@ export default function SignUpPage() {
 
   // 2. 폼 제출 시 실행될 함수
   const onSubmit = (data: User) => {
-    console.log("서버로 보낼 데이터:", data);
     signUp(data);
   };
 
