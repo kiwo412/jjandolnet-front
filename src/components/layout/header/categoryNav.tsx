@@ -6,6 +6,7 @@ import {
   Trophy,
   type LucideIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Category {
   id: string;
@@ -17,15 +18,22 @@ const categories: Category[] = [
   { id: "notice", label: "짠한공지", icon: Megaphone },
   { id: "myPage", label: "내 정보", icon: UserCircle },
   { id: "expense", label: "짠돌력", icon: PiggyBank },
-  { id: "post", label: "짠한게시판", icon: LayoutList },
+  { id: "posts", label: "짠한게시판", icon: LayoutList },
   { id: "rank", label: "짠한 랭킹", icon: Trophy },
 ];
 
 export function CategoryNav() {
+  const navigate = useNavigate();
+
+  const handleNavigate = (menuId: string) => {
+    navigate(`/${menuId}`);
+  };
+
   return (
     <div className="flex flex-wrap justify-center gap-4 py-8 bg-white shadow-sm rounded-xl">
       {categories.map((category) => (
         <button
+          onClick={() => handleNavigate(category.id)}
           key={category.id}
           className="cursor-pointer group flex flex-col items-center justify-center w-24 h-24 transition-all duration-200 rounded-lg hover:bg-gray-50 active:scale-95"
         >

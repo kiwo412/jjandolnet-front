@@ -4,3 +4,5 @@ export type useMutationCallback<T = any> = {
   onMutate?: () => void;
   onSettled?: () => void;
 };
+
+export type createState = "create" | "edit";

@@ -11,7 +11,7 @@ export default function LoginPage() {
   const { mutate: signInWithPassword, isPending: isSignInWithPasswordPending } =
     useSignInWithPassword({
       onSuccess: (data) => {
-        const token: Token = data.data;
+        const token: Token = data.data.data;
         useAuthStore.getState().setToken(token.accessToken);
         navigate("/", { replace: true });
       },

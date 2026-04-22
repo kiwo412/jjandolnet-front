@@ -50,7 +50,7 @@ export const authRefreshActions = {
     try {
       // 1. 서버의 refresh 엔드포인트 호출 (쿠키는 브라우저가 자동으로 보냄)
       const res = await refresh();
-      const { accessToken } = res.data;
+      const { accessToken } = res.data.data;
 
       // 2. 성공하면 스토어에 토큰 채우기
       useAuthStore.getState().setToken(accessToken);

@@ -1,23 +1,14 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { CategoryNav } from "./header/categoryNav";
 import TempJjandolLogo from "../ui/tempJjandolLogo";
-import {
-  getIsLogInState,
-  authlogoutActions,
-  useLogout,
-} from "../../store/authStore";
+import { getIsLogInState, authlogoutActions } from "../../store/authStore";
 
 export default function GlobalLayout() {
-  const navigate = useNavigate();
-  //로그아웃 리렌더링을 위한 정적방식 아닌 셀렉터 방식.
-  const logout = useLogout();
   const loginState = getIsLogInState();
 
   const handleLogout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       authlogoutActions.logout();
-      //logout();
-      //navigate("/", { replace: true });
     }
   };
 
@@ -51,8 +42,9 @@ export default function GlobalLayout() {
         <div className="max-w-4xl mx-auto mb-8">
           <CategoryNav />
         </div>
-
-        <Outlet />
+        <div className="max-w-4xl mx-auto mb-8">
+          <Outlet />
+        </div>
       </main>
 
       <footer className="py-6 border-t border-gray-200 bg-white">
