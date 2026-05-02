@@ -10,6 +10,7 @@ import PostCreatePage from "../pages/post/post-create-page";
 import PostDetailPage from "../pages/post/post-detail-page";
 import PostEditPage from "../pages/post/post-edit-page";
 import SaveMoneyScorePage from "../pages/saveMoneyScore/saveMoneyScore-page";
+import Chart from "../pages/chart/chart-page";
 
 export default function RootRoute() {
   return (
@@ -22,6 +23,8 @@ export default function RootRoute() {
         <Route path="/post/:id" element={<PostDetailPage />} />
 
         <Route path="/saveMoneyScore" element={<SaveMoneyScorePage />} />
+
+        <Route path="/chart" element={<Chart />} />
 
         {/* <Route element={<AdminLayout />}>{AdminRoutes()}</Route> */}
 

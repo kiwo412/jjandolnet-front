@@ -3,7 +3,7 @@ import {
   UserCircle,
   PiggyBank,
   LayoutList,
-  Trophy,
+  BarChart3,
   type LucideIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,8 @@ const categories: Category[] = [
   { id: "notice", label: "짠한공지", icon: Megaphone },
   { id: "myPage", label: "내 정보", icon: UserCircle },
   { id: "saveMoneyScore", label: "짠돌력", icon: PiggyBank },
-  { id: "posts", label: "짠한게시판", icon: LayoutList },
-  { id: "rank", label: "짠한 랭킹", icon: Trophy },
+  { id: "posts", label: "짠한 게시판", icon: LayoutList },
+  { id: "chart", label: "짠한 차트", icon: BarChart3 },
 ];
 
 export function CategoryNav() {
