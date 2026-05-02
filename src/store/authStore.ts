@@ -1,23 +1,40 @@
 import { create } from "zustand";
 import { devtools, combine } from "zustand/middleware";
 import { logout, refresh } from "../api/auth";
+import type { Token } from "../types/auth";
 
 export const useAuthStore = create(
   devtools(
     combine(
       {
         accessToken: null as string | null,
+        uuid: null as string | null,
+        nickname: null as string | null,
         isLogInState: false,
       },
       (set) => ({
-        setToken: (token: string) =>
+        setToken: (token: Token) =>
           set(
-            { accessToken: token, isLogInState: true },
+            {
+              accessToken: token.accessToken,
+              uuid: token.uuid,
+              nickname: token.nickname,
+              isLogInState: true,
+            },
             false,
             "auth/setToken",
           ),
         logout: () =>
-          set({ accessToken: null, isLogInState: false }, false, "auth/logout"),
+          set(
+            {
+              accessToken: null,
+              uuid: null,
+              nickname: null,
+              isLogInState: false,
+            },
+            false,
+            "auth/logout",
+          ),
       }),
     ),
     { name: "AuthStore" },
@@ -25,7 +42,7 @@ export const useAuthStore = create(
 );
 
 //훅 - 셀렉터 - 리렌더링
-export const useToken = (token: string) => {
+export const useToken = (token: Token) => {
   const setAccessToken = useAuthStore((state) => state.setToken(token));
   return setAccessToken;
 };
@@ -37,8 +54,9 @@ export const useLogout = () => {
 
 //정적방식 - 값을 가져가고, 변하게도 하지만, 리렌더링 안일어남
 export const getAccessToken = () => useAuthStore.getState().accessToken;
-
 export const getIsLogInState = () => useAuthStore.getState().isLogInState;
+export const getUuid = () => useAuthStore.getState().uuid;
+export const getNickname = () => useAuthStore.getState().nickname;
 
 //새로고침 액세스 토큰 처리
 //추후에 localstorage 쓸지 좀더 생각하기
@@ -50,10 +68,10 @@ export const authRefreshActions = {
     try {
       // 1. 서버의 refresh 엔드포인트 호출 (쿠키는 브라우저가 자동으로 보냄)
       const res = await refresh();
-      const { accessToken } = res.data.data;
+      const token: Token = res.data.data;
 
       // 2. 성공하면 스토어에 토큰 채우기
-      useAuthStore.getState().setToken(accessToken);
+      useAuthStore.getState().setToken(token);
     } catch (error) {
       // 3. 실패하면 (로그인 만료 등) 깨끗이 비우기
       useAuthStore.getState().logout();

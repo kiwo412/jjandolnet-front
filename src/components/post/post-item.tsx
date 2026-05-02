@@ -1,13 +1,23 @@
-import type { Post } from "../../types/post";
+import { Calendar } from "lucide-react";
+import type { PostItemProps } from "../../types/post";
 
-export default function PostItem({ post }: { post: Post }) {
+export default function PostItem({ post, onItemClick }: PostItemProps) {
   return (
-    <div className="group flex flex-col p-5 mb-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer">
+    <div
+      onClick={() => onItemClick(post.id)}
+      className="group flex flex-col p-5 mb-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+    >
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-lg">
           No. {post.id}
         </span>
-        <span className="text-xs text-gray-400">{post.createdAt}</span>
+        {/* <span className="text-xs text-gray-400">{post.createdAt}</span> */}
+        <div className="flex items-center gap-1">
+          <Calendar className="w-4 h-4" />
+          <span className="text-xs text-gray-400">
+            {new Date(post.createdAt).toLocaleDateString()}
+          </span>
+        </div>
       </div>
 
       <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-orange-600 transition-colors">

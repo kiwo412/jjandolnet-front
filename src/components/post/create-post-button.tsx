@@ -1,10 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 
-export default function CreatePostButton() {
+export default function CreatePostButton({
+  onCreateClick,
+}: {
+  onCreateClick: () => boolean;
+}) {
   const navigate = useNavigate();
   const handleButtonClick = () => {
-    navigate("/post/create");
+    const isLoginFlag = onCreateClick();
+    if (isLoginFlag) {
+      navigate("/post/create");
+    }
   };
 
   return (

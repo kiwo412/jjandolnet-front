@@ -12,7 +12,8 @@ export default function LoginPage() {
     useSignInWithPassword({
       onSuccess: (data) => {
         const token: Token = data.data.data;
-        useAuthStore.getState().setToken(token.accessToken);
+        //useAuthStore.getState().setToken(token.accessToken);
+        useAuthStore.getState().setToken(token);
         navigate("/", { replace: true });
       },
       onError: (error) => {

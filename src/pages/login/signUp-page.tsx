@@ -47,8 +47,9 @@ export default function SignUpPage() {
               {...register("email", {
                 required: "이메일은 필수입니다.",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: "이메일 형식이 올바르지 않습니다.",
+                  value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/,
+                  message:
+                    "아이디 형식이 올바르지 않습니다. ex) example@email.com",
                 },
               })}
               disabled={isSignUpPending}

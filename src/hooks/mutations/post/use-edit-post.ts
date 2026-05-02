@@ -1,16 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { useMutationCallback } from "../../../types/common";
-import { createPost } from "../../../api/post";
+import { editPost } from "../../../api/post";
 import { QUERY_KEYS } from "../../../lib/constants";
 
-export function useCreatePost(callbacks?: useMutationCallback) {
+export function useEditPost(callbacks?: useMutationCallback) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createPost,
-    onSuccess: () => {
+    mutationFn: editPost,
+    onSuccess: (_, variables) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.post.list(0).slice(0, 2),
+      });
+
+      const postId = variables.id;
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.post.detail(postId),
       });
     },
     onError: (error) => {

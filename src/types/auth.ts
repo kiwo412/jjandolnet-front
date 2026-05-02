@@ -11,4 +11,6 @@ export type LoginRequest = Pick<User, "email" | "password">;
 export type Token = {
   accessToken: string;
   grantType: string;
+  uuid: string;
+  nickname: string;
 };

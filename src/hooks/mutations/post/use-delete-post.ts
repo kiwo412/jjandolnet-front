@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { useMutationCallback } from "../../../types/common";
-import { createPost } from "../../../api/post";
+import { deletePost } from "../../../api/post";
 import { QUERY_KEYS } from "../../../lib/constants";
 
-export function useCreatePost(callbacks?: useMutationCallback) {
+export function useDeletePost(callbacks?: useMutationCallback) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createPost,
+    mutationFn: deletePost,
     onSuccess: () => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       queryClient.invalidateQueries({

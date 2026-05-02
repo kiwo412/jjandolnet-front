@@ -1,41 +1,48 @@
-import axios from "axios";
-import type { PostCreateRequest } from "../types/post";
+import type { PostCreateRequest, PostEditRequest } from "../types/post";
 import api from "./api";
 
-export const fetchPost = async (page: number) => {
-  try {
-    const response = await api.get("/api/v1/post", {
-      params: {
-        page: page,
-        //size: size,
-        size: 10,
-        sort: "createdAt,desc",
-      },
-    });
-    console.log("response : ", response);
-    return response.data.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("게시글 조회 실패", error.response?.data || error.message);
-    } else {
-      console.error("게시글 조회 실패", error);
-    }
+export const fetchPosts = async (page: number) => {
+  const response = await api.get("/api/v1/post", {
+    params: {
+      page: page,
+      //size: size,
+      size: 5,
+      sort: "createdAt,desc",
+    },
+  });
+  return response.data.data;
+};
 
-    throw error;
-  }
+export const fetchPost = async (postId: number) => {
+  const response = await api.get(`/api/v1/post/${postId}`);
+  return response.data.data;
 };
 
 export const createPost = async (post: PostCreateRequest) => {
-  try {
-    const response = await api.post("/api/v1/post", post);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("게시글 작성 실패", error.response?.data || error.message);
-    } else {
-      console.error("게시글 작성 실패", error);
-    }
+  const response = await api.post("/api/v1/post", post);
+  return response.data;
+};
 
-    throw error;
-  }
+export const editPost = async (post: PostEditRequest) => {
+  const response = await api.put("/api/v1/post", post);
+  return response.data;
+};
+
+export const deletePost = async (postId: number) => {
+  const response = await api.delete(`/api/v1/post/${postId}`);
+
+  //예외처리는 tanstackquery의 뮤테이션으로 던지고 여기선 순수 데이터만 처리하기로.
+  // try {
+  //   const response = await api.delete(`/api/v1/post/${postId}`);
+  //   return response.data;
+  // } catch (error) {
+  //   if (axios.isAxiosError(error)) {
+  //     const errorMessage =
+  //       error.response?.data?.message || "게시글 삭제에 실패했습니다.";
+  //   } else {
+
+  //   }
+
+  //   throw error;
+  // }
 };

@@ -1,9 +1,9 @@
 export const QUERY_KEYS = {
   post: {
     all: ["post"],
-    list: ["post", "list"],
+    list: (page: number) => ["post", "list", { page }],
+    detail: (postId: number) => ["post", "detail", postId],
     userList: (userId: string) => ["post", "userList", userId],
-    byid: (postId: number) => ["post", "list", postId],
   },
 };
 
