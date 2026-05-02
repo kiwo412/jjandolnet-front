@@ -7,7 +7,7 @@ export type PaginatedResponse<T> = {
 };
 
 export type Post = {
-  category: "FREE" | "NOTICE";
+  category: category;
   id: number;
   title: string;
   content: string;
@@ -33,3 +33,5 @@ export type PostItemProps = {
 export type PostCreateRequest = Pick<Post, "title" | "content" | "category">;
 
 export type PostEditRequest = Pick<Post, "id" | "title" | "content">;
+
+export type category = "FREE" | "NOTICE";

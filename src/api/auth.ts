@@ -1,5 +1,6 @@
 import type { User, LoginRequest } from "../types/auth";
 
+//fetch방식
 export async function signUp(user: User) {
   //const response = await axios.post('http://localhost:8080/api/v1/user/signup', user);
   //const { data, error } = await supabase.auth.supabaseApiEx

@@ -4,6 +4,11 @@ import type { User } from "../../types/auth";
 import { getMaxBirthDate } from "../../utils/date";
 import TempJjandolLogo from "../../components/ui/tempJjandolLogo";
 import { useSignUp } from "../../hooks/mutations/auth/use-sign-up";
+import { Loader } from "lucide-react";
+import {
+  useSignUpAddrData,
+  useSignUpJobData,
+} from "../../hooks/queries/use-sign-up-data";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -28,6 +33,31 @@ export default function SignUpPage() {
   const onSubmit = (data: User) => {
     signUp(data);
   };
+
+  const {
+    data: addrData,
+    error: addrError,
+    isPending: isAddrPending,
+  } = useSignUpAddrData();
+
+  const {
+    data: jobData,
+    error: jobError,
+    isPending: isJobPending,
+  } = useSignUpJobData();
+
+  if (addrError || jobError)
+    return (
+      <div className="text-red-500 text-center py-10">
+        잠시 후 다시 시도해 주세요.
+      </div>
+    );
+  if (isAddrPending || isJobPending)
+    return (
+      <div className="flex justify-center items-center py-10">
+        <Loader className="animate-spin w-8 h-8 text-orange-500" />
+      </div>
+    );
 
   return (
     <div className="flex flex-col items-center justify-start min-h-[calc(100vh-16rem)] p-4 pt-10 sm:pt-20">
@@ -124,6 +154,7 @@ export default function SignUpPage() {
               disabled={isSignUpPending}
               type="date"
               // 14세 미만은 아예 선택 불가능하게 설정
+              // 실 인증 모듈은 붙일 수 없으므로 일단 비즈니스 시나리오 대로.
               max={getMaxBirthDate(14)}
               onKeyDown={(e) => e.preventDefault()}
               onPaste={(e) => e.preventDefault()}
@@ -134,6 +165,54 @@ export default function SignUpPage() {
                 {errors.birthDate.message}
               </p>
             )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 space-y-0">
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-600 ml-1">
+                거주 지역
+              </label>
+              <select
+                {...register("addressId", { required: "지역을 선택해주세요." })}
+                disabled={isSignUpPending || isAddrPending}
+                className="w-full h-12 px-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-300 transition-all appearance-none"
+              >
+                <option value="">지역 선택</option>
+                {addrData?.map((addr) => (
+                  <option key={addr.id} value={addr.id}>
+                    {addr.name}
+                  </option>
+                ))}
+              </select>
+              {errors.addressId && (
+                <p className="text-red-500 text-[11px] ml-1">
+                  {errors.addressId.message}
+                </p>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-600 ml-1">
+                직업
+              </label>
+              <select
+                {...register("jobId", { required: "직업을 선택해주세요." })}
+                disabled={isSignUpPending || isJobPending}
+                className="w-full h-12 px-3 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-300 transition-all appearance-none"
+              >
+                <option value="">직업 선택</option>
+                {jobData?.map((job) => (
+                  <option key={job.id} value={job.id}>
+                    {job.name}
+                  </option>
+                ))}
+              </select>
+              {errors.jobId && (
+                <p className="text-red-500 text-[11px] ml-1">
+                  {errors.jobId.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="space-y-1.5">

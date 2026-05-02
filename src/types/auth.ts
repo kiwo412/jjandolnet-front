@@ -4,6 +4,8 @@ export type User = {
   nickname: string;
   birthDate: string;
   gender: string;
+  addressId: number;
+  jobId: number;
 };
 
 export type LoginRequest = Pick<User, "email" | "password">;
