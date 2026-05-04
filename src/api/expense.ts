@@ -16,7 +16,16 @@ export const editExpense = async (expense: ExpenseEditRequest) => {
   return response.data;
 };
 
-export const getExpenseList = async () => {
-  const response = await api.get(`/api/v1/expense/getExpenseList`);
+export const deleteExpense = async (id: number) => {
+  const response = await api.delete(`/api/v1/expense/${id}`);
+  return response.data;
+};
+
+export const getExpenseList = async (yearMonthDate: string) => {
+  const response = await api.get(`/api/v1/expense/getExpenseList`, {
+    params: {
+      expenseDate: yearMonthDate,
+    },
+  });
   return response.data.data;
 };

@@ -5,33 +5,29 @@ import "../../style/scroll.css";
 import { useExpenseDialogStore } from "@/store/expenseStore";
 
 export function ExpenseList({
+  yearMonthDate,
   isCreatePending,
   isEditPending,
+  isDeletePending,
 }: {
+  yearMonthDate: string;
   isCreatePending: boolean;
   isEditPending: boolean;
+  isDeletePending: boolean;
 }) {
   const { openModal } = useExpenseDialogStore();
-  const { data, error, isPending } = useExpenseList();
+  const { data, error, isPending } = useExpenseList(yearMonthDate);
 
   if (error)
     return (
       <div className="text-red-500 text-center py-10">잘못된 접근입니다.</div>
     );
-  if (isPending || isCreatePending || isEditPending)
+  if (isPending || isCreatePending || isEditPending || isDeletePending)
     return (
       <div className="flex justify-center items-center py-10">
         <Loader className="animate-spin w-8 h-8 text-orange-500" />
       </div>
     );
-
-  if (!data || data.length === 0) {
-    return (
-      <div className="text-center py-10 text-gray-500">
-        소비 내역이 없습니다.
-      </div>
-    );
-  }
 
   return (
     <div className="mt-8 space-y-4">
@@ -46,20 +42,27 @@ export function ExpenseList({
       </div>
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="h-100 overflow-y-auto pr-2 custom-scrollbar border-b border-transparent">
-          <div className="grid gap-3">
-            {data.map((item, index) => {
-              const isFirst =
-                index === 0 || data[index - 1].expenseDate !== item.expenseDate;
+          {!data || data.length === 0 ? (
+            <div className="text-center py-10 text-gray-500">
+              소비 내역이 없습니다.
+            </div>
+          ) : (
+            <div className="grid gap-3">
+              {data.map((item, index) => {
+                const isFirst =
+                  index === 0 ||
+                  data[index - 1].expenseDate !== item.expenseDate;
 
-              return (
-                <ExpenseItem
-                  key={item.id}
-                  expense={item}
-                  isFirstOfDay={isFirst}
-                />
-              );
-            })}
-          </div>
+                return (
+                  <ExpenseItem
+                    key={item.id}
+                    expense={item}
+                    isFirstOfDay={isFirst}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

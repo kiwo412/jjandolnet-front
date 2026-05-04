@@ -25,3 +25,12 @@ export type ExpenseItemProps = {
   expense: Expense;
   isFirstOfDay: boolean;
 };
+
+export type ExpenseDialogProps = {
+  categories: ExpenseCategory[];
+  onSave: (data: ExpenseCreateRequest) => void;
+  onDelete: () => void;
+  isOpen: boolean;
+  onClose: () => void;
+  initialData: Expense | null;
+};

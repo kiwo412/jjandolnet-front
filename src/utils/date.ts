@@ -35,7 +35,7 @@ export const formatYearMonth = (date: Date) => {
 };
 
 /**
- * 서비스 시작일 (2026년 5월 1일)
- * 5월 이전은 추후 지원 예정
+ * 서비스 시작일 (2026년 1월 1일)
+ * 2026-01-01 이전은 추후 지원 예정 정책
  */
-export const SERVICE_START_DATE = "2026-05-01";
+export const SERVICE_START_DATE = "2026-01-01";

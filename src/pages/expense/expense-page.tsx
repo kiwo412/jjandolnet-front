@@ -14,9 +14,12 @@ import { useCuIncome } from "@/hooks/mutations/income/use-cu-income";
 import { formatAmountInput, parseAmount } from "@/utils/format";
 import { useExpenseDialogStore } from "@/store/expenseStore";
 import { useEditExpense } from "@/hooks/mutations/expense/use-edit-expense";
+import { useDeleteExpense } from "@/hooks/mutations/expense/use-delete-expense";
 
 export default function Expense() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const yearMonthDate = formatYearMonth(currentDate);
+
   const {
     isOpen,
     closeModal,
@@ -33,12 +36,13 @@ export default function Expense() {
     data: incomeData,
     error: incomeError,
     isPending: isIncomePending,
-  } = useIncomeData(formatYearMonth(currentDate));
+  } = useIncomeData(yearMonthDate);
 
   const { mutate: createExpense, isPending: isCreatePending } =
     useCreateExpense({
       onSuccess: () => {
         alert("소비내역이 등록되었습니다.");
+        closeModal();
       },
       onError: (error) => {
         const message = getErrorMessage(error, "소비내역 등록에 실패했습니다.");
@@ -56,6 +60,18 @@ export default function Expense() {
       alert(message);
     },
   });
+
+  const { mutate: deleteExpense, isPending: isDeletePending } =
+    useDeleteExpense({
+      onSuccess: () => {
+        alert("소비내역이 삭제되었습니다.");
+        closeModal();
+      },
+      onError: (error) => {
+        const message = getErrorMessage(error, "소비내역 삭제에 실패했습니다.");
+        alert(message);
+      },
+    });
 
   const { mutate: cuIncome, isPending: isCuIncomePending } = useCuIncome({
     onSuccess: () => {
@@ -97,9 +113,28 @@ export default function Expense() {
     }
   };
 
-  const prevMonth = () => {};
+  const handleDeleteExpense = () => {
+    deleteExpense({
+      id: selectedExpense!.id,
+      yearMonthDate: yearMonthDate,
+    });
+  };
 
-  const nextMonth = () => {};
+  const prevMonth = () => {
+    setCurrentDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setMonth(newDate.getMonth() - 1);
+      return newDate;
+    });
+  };
+
+  const nextMonth = () => {
+    setCurrentDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setMonth(newDate.getMonth() + 1);
+      return newDate;
+    });
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -144,17 +179,20 @@ export default function Expense() {
       </div>
 
       <ExpenseDialog
-        key={selectedExpense?.id || "create"}
+        key={`${selectedExpense?.id || "create"}-${isOpen}`}
         isOpen={isOpen}
         onClose={closeModal}
         categories={expenseCategoryData || []}
         onSave={handleSaveExpense}
+        onDelete={handleDeleteExpense}
         initialData={selectedExpense}
       />
 
       <ExpenseList
+        yearMonthDate={yearMonthDate}
         isCreatePending={isCreatePending}
         isEditPending={isEditPending}
+        isDeletePending={isDeletePending}
       />
       <div>테스트영역1</div>
     </div>

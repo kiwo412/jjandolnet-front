@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getTodayDate, SERVICE_START_DATE } from "@/utils/date";
 import {
   Dialog,
@@ -7,30 +7,18 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import type {
-  Expense,
-  ExpenseCategory,
-  ExpenseCreateRequest,
-} from "@/types/expense";
+import type { ExpenseCreateRequest, ExpenseDialogProps } from "@/types/expense";
 import { formatAmountInput, parseAmount } from "@/utils/format";
-
-type Props = {
-  categories: ExpenseCategory[];
-  onSave: (data: ExpenseCreateRequest) => void;
-
-  isOpen: boolean;
-  onClose: () => void;
-  initialData: Expense | null;
-};
 
 // react-hook-form 없이 state로 하는 경우
 export function ExpenseDialog({
   categories,
   onSave,
+  onDelete,
   isOpen,
   onClose,
   initialData,
-}: Props) {
+}: ExpenseDialogProps) {
   const [formData, setFormData] = useState({
     categoryId: initialData ? String(initialData.category.id) : "",
     amount: initialData ? formatAmountInput(String(initialData.amount)) : "",
@@ -77,6 +65,10 @@ export function ExpenseDialog({
 
     onSave(submitData);
     handleOpenChange(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
   };
 
   const isEditMode = !!initialData;
@@ -160,7 +152,7 @@ export function ExpenseDialog({
             >
               소비날짜
               <span className="text-[11px] text-gray-400 ml-2 font-normal">
-                * 2026.05 이후만 가능합니다.
+                * 2026.01 부터 가능합니다.
               </span>
             </label>
             <input
@@ -178,12 +170,24 @@ export function ExpenseDialog({
         </div>
 
         <DialogFooter>
-          <button
-            onClick={handleSubmit}
-            className="w-full bg-orange-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-700 transition-colors"
-          >
-            {isEditMode ? "수정하기" : "등록하기"}
-          </button>
+          <div className="flex gap-3 w-full">
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-orange-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-700 transition-colors"
+            >
+              {isEditMode ? "수정하기" : "등록하기"}
+            </button>
+            {isEditMode ? (
+              <button
+                onClick={handleDelete}
+                className="flex-1 cursor-pointer bg-red-600 text-white font-bold text-lg px-8 py-4 rounded-xl shadow-md hover:bg-red-700 transition-all duration-200 tracking-tight active:scale-95 disabled:bg-red-400 disabled:cursor-not-allowed whitespace-nowrap"
+              >
+                삭제
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

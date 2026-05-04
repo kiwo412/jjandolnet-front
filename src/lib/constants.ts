@@ -12,7 +12,7 @@ export const QUERY_KEYS = {
   },
   expense: {
     all: ["expense"],
-    list: () => ["expend", "list"],
+    list: (yearMonthDate: string) => ["expend", "list", yearMonthDate],
   },
   expenseCategory: {
     list: () => ["expendCategory", "list"],

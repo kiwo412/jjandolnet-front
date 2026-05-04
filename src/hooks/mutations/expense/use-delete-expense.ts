@@ -1,19 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { useMutationCallback } from "../../../types/common";
 import { QUERY_KEYS } from "../../../lib/constants";
-import { editExpense } from "@/api/expense";
+import { deleteExpense } from "@/api/expense";
 
-export function useEditExpense(callbacks?: useMutationCallback) {
+export function useDeleteExpense(callbacks?: useMutationCallback) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: editExpense,
+    mutationFn: ({
+      id,
+      yearMonthDate,
+    }: {
+      id: number;
+      yearMonthDate: string;
+    }) => deleteExpense(id),
     onSuccess: (res, variable) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
-
-      const yearMonthDate = variable.expenseDate.slice(0, 7);
-
+      const month = variable.yearMonthDate.slice(0, 7);
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.list(yearMonthDate),
+        queryKey: QUERY_KEYS.expense.list(month),
       });
     },
     onError: (error) => {

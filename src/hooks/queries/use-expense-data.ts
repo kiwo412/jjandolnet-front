@@ -11,10 +11,10 @@ export const useExpenseCategoryData = () => {
   });
 };
 
-export const useExpenseList = () => {
+export const useExpenseList = (yearMonthDate: string) => {
   return useQuery<Expense[]>({
-    queryKey: QUERY_KEYS.expense.list(),
-    queryFn: () => getExpenseList(),
+    queryKey: QUERY_KEYS.expense.list(yearMonthDate),
+    queryFn: () => getExpenseList(yearMonthDate),
     staleTime: 0,
   });
 };

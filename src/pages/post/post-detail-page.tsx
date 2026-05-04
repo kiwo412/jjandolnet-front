@@ -126,7 +126,7 @@ export default function PostDetailPage() {
                 <button
                   disabled={isPending || isDeletePending}
                   onClick={handleDelete}
-                  className="cursor-pointer bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all duration-200 tracking-tight active:scale-95"
+                  className="cursor-pointer bg-red-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-red-700 transition-all duration-200 tracking-tight active:scale-95 disabled:bg-red-400 disabled:cursor-not-allowed"
                 >
                   삭제
                 </button>

@@ -7,10 +7,13 @@ export function useCreateExpense(callbacks?: useMutationCallback) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createExpense,
-    onSuccess: () => {
+    onSuccess: (res, variable) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
+
+      const yearMonthDate = variable.expenseDate.slice(0, 7);
+
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.list(),
+        queryKey: QUERY_KEYS.expense.list(yearMonthDate),
       });
     },
     onError: (error) => {
