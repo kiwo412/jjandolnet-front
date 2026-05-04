@@ -24,3 +24,18 @@ export const formatDate = (date: Date): string => {
   const dd = String(date.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
 };
+
+/*
+ * Date 객체를 'YYYY-MM' 형식의 문자열로 변환
+ */
+export const formatYearMonth = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
+};
+
+/**
+ * 서비스 시작일 (2026년 5월 1일)
+ * 5월 이전은 추후 지원 예정
+ */
+export const SERVICE_START_DATE = "2026-05-01";

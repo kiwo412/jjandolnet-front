@@ -1,3 +1,4 @@
+import { getIsLogInState } from "@/store/authStore";
 import {
   Megaphone,
   UserCircle,
@@ -17,7 +18,7 @@ interface Category {
 const categories: Category[] = [
   { id: "notice", label: "짠한공지", icon: Megaphone },
   { id: "myPage", label: "내 정보", icon: UserCircle },
-  { id: "saveMoneyScore", label: "짠돌력", icon: PiggyBank },
+  { id: "expense", label: "짠돌력", icon: PiggyBank },
   { id: "posts", label: "짠한 게시판", icon: LayoutList },
   { id: "chart", label: "짠한 차트", icon: BarChart3 },
 ];
@@ -26,6 +27,10 @@ export function CategoryNav() {
   const navigate = useNavigate();
 
   const handleNavigate = (menuId: string) => {
+    if (menuId !== "posts" && menuId !== "chart" && !getIsLogInState()) {
+      alert("로그인이 필요합니다!");
+      return false;
+    }
     navigate(`/${menuId}`);
   };
 

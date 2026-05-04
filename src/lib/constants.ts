@@ -3,13 +3,23 @@ export const QUERY_KEYS = {
     all: ["post"],
     list: (page: number) => ["post", "list", { page }],
     detail: (postId: number) => ["post", "detail", postId],
-    userList: (userId: string) => ["post", "userList", userId],
   },
   address: {
     list: () => ["address", "list"],
   },
   job: {
     list: () => ["job", "list"],
+  },
+  expense: {
+    all: ["expense"],
+    list: () => ["expend", "list"],
+  },
+  expenseCategory: {
+    list: () => ["expendCategory", "list"],
+  },
+  income: {
+    all: ["income"],
+    list: (month: string) => ["income", "list", month],
   },
 };
 

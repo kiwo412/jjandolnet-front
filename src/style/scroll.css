@@ -1,0 +1,29 @@
+/* 1. 전체 스크롤바 너비 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* 6px에서 8px로 조금 키워서 더 잘 보이게 함 */
+}
+
+/* 2. 스크롤바가 지나가는 길 (트랙) */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f8fafc; /* 아주 연한 회색 배경을 깔아서 영역을 표시 (slate-50) */
+  border-radius: 10px;
+}
+
+/* 3. 실제 움직이는 막대 (핸들) */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* 기본 상태: 로고와 어울리는 확실한 회색 */
+  background: #cbd5e1; /* slate-300 (더 진해짐) */
+  border-radius: 10px;
+  border: 2px solid #f8fafc; /* 트랙과 간격을 줘서 입체감 부여 */
+}
+
+/* 4. 마우스를 올렸을 때 (Hover) */
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  /* 짠돌이 로고의 오렌지색 적용 */
+  background: #fb923c; /* orange-400 */
+}
+
+/* 5. 클릭하고 있을 때 (Active) */
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: #f97316; /* orange-500 (더 진한 오렌지) */
+}
