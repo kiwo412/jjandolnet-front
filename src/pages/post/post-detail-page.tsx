@@ -40,9 +40,7 @@ export default function PostDetailPage() {
 
   if (error)
     return (
-      <div className="text-red-500 text-center py-10">
-        잠시 후 다시 시도해 주세요.
-      </div>
+      <div className="text-red-500 text-center py-10">잘못된 접근입니다.</div>
     );
   if (isPending)
     return (
@@ -85,7 +83,8 @@ export default function PostDetailPage() {
             <div className="flex items-center gap-4 text-gray-400 text-sm">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                {new Date(createdAt).toLocaleDateString()}
+                {/* {new Date(createdAt).toLocaleDateString()} */}
+                {createdAt}
               </div>
               <div className="flex items-center gap-1">
                 <Eye className="w-4 h-4" />

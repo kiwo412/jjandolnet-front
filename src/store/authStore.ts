@@ -42,8 +42,8 @@ export const useAuthStore = create(
 );
 
 //훅 - 셀렉터 - 리렌더링
-export const useToken = (token: Token) => {
-  const setAccessToken = useAuthStore((state) => state.setToken(token));
+export const useToken = () => {
+  const setAccessToken = useAuthStore((state) => state.setToken);
   return setAccessToken;
 };
 

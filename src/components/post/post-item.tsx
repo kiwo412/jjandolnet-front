@@ -15,7 +15,8 @@ export default function PostItem({ post, onItemClick }: PostItemProps) {
         <div className="flex items-center gap-1">
           <Calendar className="w-4 h-4" />
           <span className="text-xs text-gray-400">
-            {new Date(post.createdAt).toLocaleDateString()}
+            {/* {new Date(post.createdAt).toLocaleDateString()} */}
+            {post.createdAt}
           </span>
         </div>
       </div>

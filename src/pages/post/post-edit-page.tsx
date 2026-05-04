@@ -26,9 +26,7 @@ export default function PostEditPage() {
 
   if (error)
     return (
-      <div className="text-red-500 text-center py-10">
-        잠시 후 다시 시도해 주세요.
-      </div>
+      <div className="text-red-500 text-center py-10">잘못된 접근입니다.</div>
     );
   if (isPending)
     return (
