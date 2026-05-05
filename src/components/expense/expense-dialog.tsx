@@ -18,13 +18,23 @@ export function ExpenseDialog({
   isOpen,
   onClose,
   initialData,
+  currentDate,
 }: ExpenseDialogProps) {
   const [formData, setFormData] = useState({
     categoryId: initialData ? String(initialData.category.id) : "",
     amount: initialData ? formatAmountInput(String(initialData.amount)) : "",
     memo: initialData?.memo || "",
-    expenseDate: initialData?.expenseDate || getTodayDate(),
+    expenseDate: initialData?.expenseDate || "",
   });
+
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  const firstDayOfMonth = `${year}-${String(month + 1).padStart(2, "0")}-01`;
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  const lastDayOfMonth = `${year}-${String(month + 1).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
+  const todayStr = getTodayDate();
+  const finalMaxDate = lastDayOfMonth > todayStr ? todayStr : lastDayOfMonth;
 
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen) {
@@ -151,17 +161,15 @@ export function ExpenseDialog({
               className="flex items-baseline font-semibold text-sm"
             >
               소비날짜
-              <span className="text-[11px] text-gray-400 ml-2 font-normal">
-                * 2026.01 부터 가능합니다.
-              </span>
+              <span className="text-[11px] text-gray-400 ml-2 font-normal"></span>
             </label>
             <input
               id="date"
               type="date"
-              max={getTodayDate()}
-              min={SERVICE_START_DATE}
-              className="border p-3 rounded-xl outline-none focus:border-orange-500 transition-all"
+              max={finalMaxDate}
+              min={firstDayOfMonth}
               value={formData.expenseDate}
+              className="border p-3 rounded-xl outline-none focus:border-orange-500 transition-all"
               onChange={(e) =>
                 setFormData({ ...formData, expenseDate: e.target.value })
               }

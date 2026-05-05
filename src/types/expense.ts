@@ -33,4 +33,5 @@ export type ExpenseDialogProps = {
   isOpen: boolean;
   onClose: () => void;
   initialData: Expense | null;
+  currentDate: Date;
 };

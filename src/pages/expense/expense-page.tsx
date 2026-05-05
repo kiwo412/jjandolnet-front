@@ -6,7 +6,7 @@ import { getErrorMessage } from "@/utils/error";
 import { useCreateExpense } from "@/hooks/mutations/expense/use-create-expense";
 import { ExpenseList } from "@/components/expense/expense-list";
 import ExpenseIncomeItem from "@/components/expense/expense-income-item";
-import { formatYearMonth } from "@/utils/date";
+import { formatYearMonth, SERVICE_START_DATE } from "@/utils/date";
 import { useState } from "react";
 import { useIncomeData } from "@/hooks/queries/use-income-data";
 import type { incomeCreateOrEditRequest } from "@/types/income";
@@ -19,6 +19,18 @@ import { useDeleteExpense } from "@/hooks/mutations/expense/use-delete-expense";
 export default function Expense() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const yearMonthDate = formatYearMonth(currentDate);
+  const today = new Date();
+  const serviceStartDate = new Date(SERVICE_START_DATE);
+
+  const isCurrentMonthFutureFlag =
+    currentDate.getFullYear() > today.getFullYear() ||
+    (currentDate.getFullYear() === today.getFullYear() &&
+      currentDate.getMonth() >= today.getMonth());
+
+  const isCurrentMonthPastFlag =
+    currentDate.getFullYear() < serviceStartDate.getFullYear() ||
+    (currentDate.getFullYear() === serviceStartDate.getFullYear() &&
+      currentDate.getMonth() <= serviceStartDate.getMonth());
 
   const {
     isOpen,
@@ -94,7 +106,7 @@ export default function Expense() {
       </div>
     );
 
-  const incomInitialData = {
+  const incomeInitialData = {
     ...incomeData,
     amount: incomeData?.amount
       ? formatAmountInput(String(incomeData.amount))
@@ -139,15 +151,19 @@ export default function Expense() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
-        <button
-          onClick={prevMonth}
-          className="p-2 hover:bg-gray-50 rounded-full transition-colors text-gray-400 hover:text-orange-500"
-        >
-          <div className="flex items-center gap-1">
-            <ChevronLeft className="w-5 h-5" />
-            <span className="text-xs font-medium hidden sm:inline">이전달</span>
-          </div>
-        </button>
+        <div className={isCurrentMonthPastFlag ? "invisible" : "visible"}>
+          <button
+            onClick={prevMonth}
+            className="p-2 hover:bg-gray-50 rounded-full transition-colors text-gray-400 hover:text-orange-500"
+          >
+            <div className="flex items-center gap-1">
+              <ChevronLeft className="w-5 h-5" />
+              <span className="text-xs font-medium hidden sm:inline">
+                이전달
+              </span>
+            </div>
+          </button>
+        </div>
 
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold text-gray-800 tracking-tight">
@@ -155,20 +171,25 @@ export default function Expense() {
           </span>
         </div>
 
-        <button
-          onClick={nextMonth}
-          className="p-2 hover:bg-gray-50 rounded-full transition-colors text-gray-400 hover:text-orange-500"
-        >
-          <div className="flex items-center gap-1">
-            <span className="text-xs font-medium hidden sm:inline">다음달</span>
-            <ChevronRight className="w-5 h-5" />
-          </div>
-        </button>
+        <div className={isCurrentMonthFutureFlag ? "invisible" : "visible"}>
+          <button
+            onClick={nextMonth}
+            className="p-2 hover:bg-gray-50 rounded-full transition-colors text-gray-400 hover:text-orange-500"
+          >
+            <div className="flex items-center gap-1">
+              <span className="text-xs font-medium hidden sm:inline">
+                다음달
+              </span>
+              <ChevronRight className="w-5 h-5" />
+            </div>
+          </button>
+        </div>
       </div>
 
       <div>
         <ExpenseIncomeItem
-          initialData={incomInitialData}
+          key={yearMonthDate}
+          initialData={incomeInitialData}
           isPending={isCuIncomePending}
           onSubmit={(data: incomeCreateOrEditRequest) => {
             data.incomeDate = formatYearMonth(currentDate);
@@ -186,6 +207,7 @@ export default function Expense() {
         onSave={handleSaveExpense}
         onDelete={handleDeleteExpense}
         initialData={selectedExpense}
+        currentDate={currentDate}
       />
 
       <ExpenseList
