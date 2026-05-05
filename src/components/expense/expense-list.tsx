@@ -32,7 +32,7 @@ export function ExpenseList({
   return (
     <div className="mt-8 space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">최근 소비 내역</h2>
+        <h2 className="text-lg font-semibold">소비 내역</h2>
         <button
           onClick={() => openModal(null)}
           className="cursor-pointer bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all duration-200 active:scale-95"

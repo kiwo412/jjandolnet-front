@@ -1,4 +1,7 @@
-import { useExpenseCategoryData } from "@/hooks/queries/use-expense-data";
+import {
+  useExpenseCategoryData,
+  useMyScoreData,
+} from "@/hooks/queries/use-expense-data";
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import { ExpenseDialog } from "@/components/expense/expense-dialog";
 import type { ExpenseCreateRequest, ExpenseEditRequest } from "@/types/expense";
@@ -15,6 +18,7 @@ import { formatAmountInput, parseAmount } from "@/utils/format";
 import { useExpenseDialogStore } from "@/store/expenseStore";
 import { useEditExpense } from "@/hooks/mutations/expense/use-edit-expense";
 import { useDeleteExpense } from "@/hooks/mutations/expense/use-delete-expense";
+import ExpenseGraph from "@/components/expense/expense-graph";
 
 export default function Expense() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -49,6 +53,12 @@ export default function Expense() {
     error: incomeError,
     isPending: isIncomePending,
   } = useIncomeData(yearMonthDate);
+
+  const {
+    data: myScoreData,
+    error: myScoreError,
+    isPending: isMyScorePending,
+  } = useMyScoreData(yearMonthDate);
 
   const { mutate: createExpense, isPending: isCreatePending } =
     useCreateExpense({
@@ -216,7 +226,14 @@ export default function Expense() {
         isEditPending={isEditPending}
         isDeletePending={isDeletePending}
       />
-      <div>테스트영역1</div>
+
+      <ExpenseGraph
+        myScoreData={myScoreData}
+        isMyScorePending={isMyScorePending}
+        isCreatePending={isCreatePending}
+        isEditPending={isEditPending}
+        myScoreError={myScoreError}
+      />
     </div>
   );
 }

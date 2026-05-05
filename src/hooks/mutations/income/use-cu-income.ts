@@ -12,6 +12,10 @@ export function useCuIncome(callbacks?: useMutationCallback) {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.income.list(variables.incomeDate),
       });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.expense.myScore(variables.incomeDate),
+      });
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);

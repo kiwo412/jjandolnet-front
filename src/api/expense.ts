@@ -29,3 +29,12 @@ export const getExpenseList = async (yearMonthDate: string) => {
   });
   return response.data.data;
 };
+
+export const getMyScore = async (yearMonthDate: string) => {
+  const response = await api.get(`/api/v1/expense/getMyScore`, {
+    params: {
+      scoreDate: yearMonthDate,
+    },
+  });
+  return response.data.data;
+};

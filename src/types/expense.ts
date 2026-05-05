@@ -1,3 +1,6 @@
+import type { CustomAxiosErrorResponse } from "@/utils/error";
+import type { AxiosError } from "axios";
+
 export type ExpenseCategory = {
   id: number;
   name: string;
@@ -34,4 +37,19 @@ export type ExpenseDialogProps = {
   onClose: () => void;
   initialData: Expense | null;
   currentDate: Date;
+};
+
+export type MyScore = {
+  score: number;
+  totalExpense: number;
+  feedback: string;
+  status: boolean;
+};
+
+export type ExpenseGraphProps = {
+  myScoreData: MyScore | undefined;
+  isMyScorePending: boolean;
+  isCreatePending: boolean;
+  isEditPending: boolean;
+  myScoreError: AxiosError<CustomAxiosErrorResponse> | null;
 };

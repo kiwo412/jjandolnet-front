@@ -15,6 +15,10 @@ export function useCreateExpense(callbacks?: useMutationCallback) {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.expense.list(yearMonthDate),
       });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.expense.myScore(yearMonthDate),
+      });
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);

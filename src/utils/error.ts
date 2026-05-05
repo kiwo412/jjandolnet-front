@@ -17,3 +17,11 @@ export const getErrorMessage = (
 
   return defaultMessage;
 };
+
+export type CustomAxiosErrorResponse = {
+  timestamp: string;
+  status: number;
+  error: string;
+  code: string;
+  message: string;
+};

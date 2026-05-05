@@ -16,8 +16,13 @@ export function useDeleteExpense(callbacks?: useMutationCallback) {
     onSuccess: (res, variable) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       const month = variable.yearMonthDate.slice(0, 7);
+
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.expense.list(month),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.expense.myScore(month),
       });
     },
     onError: (error) => {
