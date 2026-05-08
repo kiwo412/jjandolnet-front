@@ -1,3 +1,5 @@
+import type { MainChartSearchCondition } from "@/types/expense";
+
 export const QUERY_KEYS = {
   post: {
     all: ["post"],
@@ -19,6 +21,10 @@ export const QUERY_KEYS = {
       "myCategory",
       yearMonthDate,
     ],
+    mainChart: (condition?: MainChartSearchCondition) => {
+      const baseKey = ["expend", "mainChart"];
+      return condition ? [...baseKey, condition] : baseKey;
+    },
   },
   expenseCategory: {
     list: () => ["expendCategory", "list"],

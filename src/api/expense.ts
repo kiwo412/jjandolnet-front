@@ -1,4 +1,8 @@
-import type { ExpenseCreateRequest, ExpenseEditRequest } from "@/types/expense";
+import type {
+  ExpenseCreateRequest,
+  ExpenseEditRequest,
+  MainChartSearchCondition,
+} from "@/types/expense";
 import api from "./api";
 
 export const getExpenseCategory = async () => {
@@ -45,6 +49,14 @@ export const getMyCategory = async (yearMonthDate: string) => {
       categoryDate: yearMonthDate,
     },
   });
-  console.log("response : ", response);
+  return response.data.data;
+};
+
+export const getMainChartData = async (condition: MainChartSearchCondition) => {
+  const response = await api.get(`/api/v1/expense/getMainChart`, {
+    params: {
+      ...condition,
+    },
+  });
   return response.data.data;
 };

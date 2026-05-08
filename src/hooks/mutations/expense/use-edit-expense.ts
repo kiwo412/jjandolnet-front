@@ -23,6 +23,10 @@ export function useEditExpense(callbacks?: useMutationCallback) {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.expense.myCategory(yearMonthDate),
       });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.expense.mainChart(),
+      });
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);

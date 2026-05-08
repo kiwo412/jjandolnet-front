@@ -27,7 +27,7 @@ export function CategoryNav() {
   const navigate = useNavigate();
 
   const handleNavigate = (menuId: string) => {
-    if (menuId !== "posts" && menuId !== "chart" && !getIsLogInState()) {
+    if (menuId !== "posts" && !getIsLogInState()) {
       alert("로그인이 필요합니다!");
       return false;
     }

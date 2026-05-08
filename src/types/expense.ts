@@ -57,6 +57,15 @@ export type MyCategoryResponse = {
   status: boolean;
 };
 
+export type MainChartValue = {
+  category: string;
+  average: number;
+};
+
+export type MainChartResponse = {
+  mainChartValues: MainChartValue[];
+};
+
 export type ExpenseGraphScoreProps = {
   myScoreData: MyScore | undefined;
   isMyScorePending: boolean;
@@ -71,4 +80,9 @@ export type ExpenseGraphCategoryProps = {
   isCreatePending: boolean;
   isEditPending: boolean;
   myCategoryError: AxiosError<CustomAxiosErrorResponse> | null;
+};
+
+export type MainChartSearchCondition = {
+  filter: "age" | "job" | "addr";
+  selectedCategory: number;
 };

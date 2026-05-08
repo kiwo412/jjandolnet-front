@@ -34,6 +34,14 @@ export const formatYearMonth = (date: Date) => {
   return `${year}-${month}`;
 };
 
+/*
+ * Date 객체를 'MM' 형식의 문자열로 변환
+ */
+export const formatMonth = (date: Date) => {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${month}`;
+};
+
 /**
  * 서비스 시작일 (2026년 1월 1일)
  * 2026-01-01 이전은 추후 지원 예정 정책

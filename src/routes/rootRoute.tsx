@@ -9,15 +9,13 @@ import PostPage from "../pages/post/post-page";
 import PostCreatePage from "../pages/post/post-create-page";
 import PostDetailPage from "../pages/post/post-detail-page";
 import PostEditPage from "../pages/post/post-edit-page";
-import SaveMoneyScorePage from "../pages/expense/expense-page";
-import Chart from "../pages/chart/chart-page";
+import Chart from "../pages/expense/chart-page";
 import Expense from "../pages/expense/expense-page";
 
 export default function RootRoute() {
   return (
     <Routes>
       <Route element={<GlobalLayout />}>
-        {/* <Route element={<UserAndGuestLayout />}>{UserRoutes()}</Route> */}
         <Route path="/posts" element={<PostPage />} />
         <Route path="/post/create" element={<PostCreatePage />} />
         <Route path="/post/edit/:id" element={<PostEditPage />} />

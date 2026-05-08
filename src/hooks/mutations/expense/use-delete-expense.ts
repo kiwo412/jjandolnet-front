@@ -28,6 +28,10 @@ export function useDeleteExpense(callbacks?: useMutationCallback) {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.expense.myCategory(month),
       });
+
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.expense.mainChart(),
+      });
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);

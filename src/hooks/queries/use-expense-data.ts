@@ -3,12 +3,15 @@ import { QUERY_KEYS } from "../../lib/constants";
 import type {
   Expense,
   ExpenseCategory,
+  MainChartResponse,
+  MainChartSearchCondition,
   MyCategoryResponse,
   MyScore,
 } from "@/types/expense";
 import {
   getExpenseCategory,
   getExpenseList,
+  getMainChartData,
   getMyCategory,
   getMyScore,
 } from "@/api/expense";
@@ -43,6 +46,14 @@ export const useMyCategoryData = (yearMonthDate: string) => {
   return useQuery<MyCategoryResponse, AxiosError<CustomAxiosErrorResponse>>({
     queryKey: QUERY_KEYS.expense.myCategory(yearMonthDate),
     queryFn: () => getMyCategory(yearMonthDate),
+    staleTime: 0,
+  });
+};
+
+export const useMainChartData = (condition: MainChartSearchCondition) => {
+  return useQuery<MainChartResponse, AxiosError<CustomAxiosErrorResponse>>({
+    queryKey: QUERY_KEYS.expense.mainChart(condition),
+    queryFn: () => getMainChartData(condition),
     staleTime: 0,
   });
 };
