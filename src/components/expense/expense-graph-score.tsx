@@ -1,19 +1,21 @@
-import type { ExpenseGraphProps } from "@/types/expense";
+import type { ExpenseGraphScoreProps } from "@/types/expense";
 import { Loader, Zap } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
-export default function ExpenseGraph({
+export default function ExpenseGraphScore({
   myScoreData,
   isMyScorePending,
   isCreatePending,
   isEditPending,
   myScoreError,
-}: ExpenseGraphProps) {
+}: ExpenseGraphScoreProps) {
   const isPending = isMyScorePending || isCreatePending || isEditPending;
 
   const score = myScoreData?.score ?? 0;
   const feedback = myScoreData?.feedback ?? "";
   const status = myScoreData?.status ?? false;
+
+  const isNegative = score < 0;
 
   const getScoreColor = (score: number) => {
     if (score >= 51) return "text-blue-600";
@@ -21,10 +23,19 @@ export default function ExpenseGraph({
     return "text-gray-600";
   };
 
-  const chartData = [
-    { name: "Score", value: score, fill: "#F97316" },
-    { name: "Remaining", value: 100 - score, fill: "#E5E7EB" },
-  ];
+  const chartData = isNegative
+    ? [
+        { name: "Score", value: 0, fill: "#EF4444" },
+        { name: "Remaining", value: 100, fill: "#E5E7EB" },
+      ]
+    : [
+        {
+          name: "Score",
+          value: score,
+          fill: score <= 20 ? "#EF4444" : "#F97316",
+        },
+        { name: "Remaining", value: 100 - score, fill: "#E5E7EB" },
+      ];
 
   return (
     <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-6">

@@ -1,7 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../lib/constants";
-import type { Expense, ExpenseCategory, MyScore } from "@/types/expense";
-import { getExpenseCategory, getExpenseList, getMyScore } from "@/api/expense";
+import type {
+  Expense,
+  ExpenseCategory,
+  MyCategoryResponse,
+  MyScore,
+} from "@/types/expense";
+import {
+  getExpenseCategory,
+  getExpenseList,
+  getMyCategory,
+  getMyScore,
+} from "@/api/expense";
 import type { AxiosError } from "axios";
 import type { CustomAxiosErrorResponse } from "@/utils/error";
 
@@ -25,6 +35,14 @@ export const useMyScoreData = (yearMonthDate: string) => {
   return useQuery<MyScore, AxiosError<CustomAxiosErrorResponse>>({
     queryKey: QUERY_KEYS.expense.myScore(yearMonthDate),
     queryFn: () => getMyScore(yearMonthDate),
+    staleTime: 0,
+  });
+};
+
+export const useMyCategoryData = (yearMonthDate: string) => {
+  return useQuery<MyCategoryResponse, AxiosError<CustomAxiosErrorResponse>>({
+    queryKey: QUERY_KEYS.expense.myCategory(yearMonthDate),
+    queryFn: () => getMyCategory(yearMonthDate),
     staleTime: 0,
   });
 };

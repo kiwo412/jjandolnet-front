@@ -38,3 +38,13 @@ export const getMyScore = async (yearMonthDate: string) => {
   });
   return response.data.data;
 };
+
+export const getMyCategory = async (yearMonthDate: string) => {
+  const response = await api.get(`/api/v1/expense/getMyCategory`, {
+    params: {
+      categoryDate: yearMonthDate,
+    },
+  });
+  console.log("response : ", response);
+  return response.data.data;
+};

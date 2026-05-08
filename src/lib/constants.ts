@@ -14,6 +14,11 @@ export const QUERY_KEYS = {
     all: ["expense"],
     list: (yearMonthDate: string) => ["expend", "list", yearMonthDate],
     myScore: (yearMonthDate: string) => ["expend", "myScore", yearMonthDate],
+    myCategory: (yearMonthDate: string) => [
+      "expend",
+      "myCategory",
+      yearMonthDate,
+    ],
   },
   expenseCategory: {
     list: () => ["expendCategory", "list"],

@@ -46,10 +46,29 @@ export type MyScore = {
   status: boolean;
 };
 
-export type ExpenseGraphProps = {
+export type MyCategory = {
+  name: string;
+  expense: number;
+  percent: number;
+};
+
+export type MyCategoryResponse = {
+  categories: MyCategory[];
+  status: boolean;
+};
+
+export type ExpenseGraphScoreProps = {
   myScoreData: MyScore | undefined;
   isMyScorePending: boolean;
   isCreatePending: boolean;
   isEditPending: boolean;
   myScoreError: AxiosError<CustomAxiosErrorResponse> | null;
+};
+
+export type ExpenseGraphCategoryProps = {
+  myCategoryData: MyCategoryResponse | undefined;
+  isMyCategoryPending: boolean;
+  isCreatePending: boolean;
+  isEditPending: boolean;
+  myCategoryError: AxiosError<CustomAxiosErrorResponse> | null;
 };
