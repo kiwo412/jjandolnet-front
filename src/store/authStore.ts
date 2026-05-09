@@ -52,6 +52,8 @@ export const useLogout = () => {
   return logout;
 };
 
+export const useNickname = () => useAuthStore((state) => state.nickname);
+
 //정적방식 - 값을 가져가고, 변하게도 하지만, 리렌더링 안일어남
 export const getAccessToken = () => useAuthStore.getState().accessToken;
 export const getIsLogInState = () => useAuthStore.getState().isLogInState;

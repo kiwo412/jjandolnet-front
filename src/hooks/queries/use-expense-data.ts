@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../lib/constants";
 import type {
+  ChartSearchCondition,
   Expense,
   ExpenseCategory,
   MainChartResponse,
-  MainChartSearchCondition,
   MyCategoryResponse,
   MyScore,
+  SubChartResponse,
 } from "@/types/expense";
 import {
   getExpenseCategory,
@@ -14,6 +15,7 @@ import {
   getMainChartData,
   getMyCategory,
   getMyScore,
+  getSubChart1Data,
 } from "@/api/expense";
 import type { AxiosError } from "axios";
 import type { CustomAxiosErrorResponse } from "@/utils/error";
@@ -50,10 +52,18 @@ export const useMyCategoryData = (yearMonthDate: string) => {
   });
 };
 
-export const useMainChartData = (condition: MainChartSearchCondition) => {
+export const useMainChartData = (condition: ChartSearchCondition) => {
   return useQuery<MainChartResponse, AxiosError<CustomAxiosErrorResponse>>({
     queryKey: QUERY_KEYS.expense.mainChart(condition),
     queryFn: () => getMainChartData(condition),
+    staleTime: 0,
+  });
+};
+
+export const useSubChart1Data = (condition: ChartSearchCondition) => {
+  return useQuery<SubChartResponse, AxiosError<CustomAxiosErrorResponse>>({
+    queryKey: QUERY_KEYS.expense.subChart1(condition),
+    queryFn: () => getSubChart1Data(condition),
     staleTime: 0,
   });
 };

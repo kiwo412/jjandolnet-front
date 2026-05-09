@@ -17,20 +17,16 @@ export function useDeleteExpense(callbacks?: useMutationCallback) {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       const month = variable.yearMonthDate.slice(0, 7);
 
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.list(month),
-      });
+      const keysToInvalidate = [
+        QUERY_KEYS.expense.list(month),
+        QUERY_KEYS.expense.myScore(month),
+        QUERY_KEYS.expense.myCategory(month),
+        QUERY_KEYS.expense.mainChart(),
+        QUERY_KEYS.expense.subChart1(),
+      ];
 
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.myScore(month),
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.myCategory(month),
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.mainChart(),
+      keysToInvalidate.forEach((key) => {
+        queryClient.invalidateQueries({ queryKey: key, refetchType: "active" });
       });
     },
     onError: (error) => {

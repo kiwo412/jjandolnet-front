@@ -66,6 +66,14 @@ export type MainChartResponse = {
   mainChartValues: MainChartValue[];
 };
 
+export type SubChartResponse = {
+  category: string | null;
+  message: string;
+  percent: number;
+  categoryAverage: number;
+  myTotal: number;
+};
+
 export type ExpenseGraphScoreProps = {
   myScoreData: MyScore | undefined;
   isMyScorePending: boolean;
@@ -82,7 +90,29 @@ export type ExpenseGraphCategoryProps = {
   myCategoryError: AxiosError<CustomAxiosErrorResponse> | null;
 };
 
-export type MainChartSearchCondition = {
+export type ChartSearchCondition = {
   filter: "age" | "job" | "addr";
   selectedCategory: number;
+};
+
+export type ChartFilterProps = {
+  filter: "age" | "job" | "addr";
+  onFilterChange: (value: "age" | "job" | "addr") => void;
+  selectedCategory: string;
+  onCategoryChange: (value: string) => void;
+  categoryList?: { id: number; name: string }[];
+};
+
+export type ChartGraphMainProps = {
+  monthDate: string;
+  isError: boolean;
+  isPending: boolean;
+  data: any[];
+};
+
+export type ChartGraphSubProps = {
+  isError: boolean;
+  isPending: boolean;
+  data: SubChartResponse | undefined;
+  filter: "age" | "job" | "addr";
 };

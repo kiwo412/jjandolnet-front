@@ -8,17 +8,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "../ui/card";
+import type { ChartFilterProps } from "@/types/expense";
 
-// Props 타입 정의
-interface ChartFilterProps {
-  filter: "age" | "job" | "addr";
-  onFilterChange: (value: "age" | "job" | "addr") => void;
-  selectedCategory: string;
-  onCategoryChange: (value: string) => void;
-  categoryList?: { id: number; name: string }[];
-}
-
-export function ChartFilter({
+export default function ChartFilter({
   filter,
   onFilterChange,
   selectedCategory,
@@ -29,7 +21,6 @@ export function ChartFilter({
     <Card className="border-2 border-gray-100 rounded-[20px] shadow-sm bg-white overflow-hidden">
       <CardContent className="p-3 px-5">
         <div className="flex flex-row items-center justify-between h-11">
-          {/* 타이틀 아이콘 */}
           <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-1.5 h-4 bg-orange-500 rounded-full" />
             <span className="text-[15px] font-extrabold text-gray-800">
@@ -68,7 +59,6 @@ export function ChartFilter({
               ))}
             </RadioGroup>
 
-            {/* 카테고리 셀렉트 */}
             <div className="w-[160px]">
               <Select value={selectedCategory} onValueChange={onCategoryChange}>
                 <SelectTrigger className="w-full rounded-[12px] border-gray-200 bg-white text-[13px] font-bold focus:ring-orange-500 h-9 px-3">
@@ -76,7 +66,7 @@ export function ChartFilter({
                 </SelectTrigger>
                 <SelectContent className="rounded-[14px] border-gray-100 shadow-xl">
                   <SelectItem value="all" className="text-[13px] font-medium">
-                    전체 항목
+                    전체 소비 항목
                   </SelectItem>
                   {categoryList?.map((item) => (
                     <SelectItem

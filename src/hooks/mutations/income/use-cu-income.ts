@@ -9,16 +9,17 @@ export function useCuIncome(callbacks?: useMutationCallback) {
     mutationFn: cuIncome,
     onSuccess: (res, variables) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.income.list(variables.incomeDate),
-      });
 
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.myScore(variables.incomeDate),
-      });
+      const keysToInvalidate = [
+        QUERY_KEYS.income.list(variables.incomeDate),
+        QUERY_KEYS.expense.myScore(variables.incomeDate),
+        QUERY_KEYS.expense.myCategory(variables.incomeDate),
+        QUERY_KEYS.expense.mainChart(),
+        QUERY_KEYS.expense.subChart1(),
+      ];
 
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.expense.myCategory(variables.incomeDate),
+      keysToInvalidate.forEach((key) => {
+        queryClient.invalidateQueries({ queryKey: key, refetchType: "active" });
       });
     },
     onError: (error) => {

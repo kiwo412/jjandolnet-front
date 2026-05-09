@@ -1,7 +1,7 @@
 import type {
   ExpenseCreateRequest,
   ExpenseEditRequest,
-  MainChartSearchCondition,
+  ChartSearchCondition,
 } from "@/types/expense";
 import api from "./api";
 
@@ -52,8 +52,17 @@ export const getMyCategory = async (yearMonthDate: string) => {
   return response.data.data;
 };
 
-export const getMainChartData = async (condition: MainChartSearchCondition) => {
+export const getMainChartData = async (condition: ChartSearchCondition) => {
   const response = await api.get(`/api/v1/expense/getMainChart`, {
+    params: {
+      ...condition,
+    },
+  });
+  return response.data.data;
+};
+
+export const getSubChart1Data = async (condition: ChartSearchCondition) => {
+  const response = await api.get(`/api/v1/expense/getSubChart1`, {
     params: {
       ...condition,
     },
