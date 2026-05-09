@@ -1,7 +1,7 @@
 import type { Post } from "../../types/post";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEditPost } from "../../hooks/mutations/post/use-edit-post";
-import PostForm from "../../components/post/post-form";
+import PostForm from "../../components/post/Post-form";
 import { usePost } from "../../hooks/queries/use-posts-data";
 import { Loader } from "lucide-react";
 import { getErrorMessage } from "../../utils/error";

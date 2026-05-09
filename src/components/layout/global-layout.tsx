@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import { CategoryNav } from "./header/categoryNav";
+import { CategoryNav } from "./header/CategoryNav";
 import TempJjandolLogo from "../ui/tempJjandolLogo";
 import { getIsLogInState, authlogoutActions } from "../../store/authStore";
 

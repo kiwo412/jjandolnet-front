@@ -1,6 +1,6 @@
 import { useExpenseList } from "@/hooks/queries/use-expense-data";
 import { Loader } from "lucide-react";
-import ExpenseItem from "./expense-item";
+import ExpenseItem from "./Expense-item";
 import "../../style/scroll.css";
 import { useExpenseDialogStore } from "@/store/expenseStore";
 

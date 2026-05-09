@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Loader } from "lucide-react"; // Assuming Loader is a component from lucide-react
-import CreatePostButton from "../../components/post/create-post-button";
-import PostItem from "../../components/post/post-item";
+import PostItem from "../../components/post/Post-item";
 import { usePosts } from "../../hooks/queries/use-posts-data";
 import type { Post } from "../../types/post";
 import { getIsLogInState } from "../../store/authStore";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export default function PostPage() {
-  //console.log("uuid : " + useAuthStore.getState().uuid);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -69,12 +68,19 @@ export default function PostPage() {
       alert("로그인이 필요합니다!");
       return false;
     }
-    return true;
+    navigate("/post/create");
   };
 
   return (
     <div className="container mx-auto p-4">
-      <CreatePostButton onCreateClick={handleLoginCheck} />
+      <div className="flex justify-end w-full">
+        <Button
+          onClick={handleLoginCheck}
+          className="bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all duration-200 tracking-tight active:scale-95"
+        >
+          글쓰기
+        </Button>
+      </div>
       <div className="mt-4">
         {content.length > 0 ? (
           content.map((post: Post) => (

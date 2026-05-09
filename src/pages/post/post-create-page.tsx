@@ -1,7 +1,7 @@
 import type { Post } from "../../types/post";
 import { useNavigate } from "react-router-dom";
 import { useCreatePost } from "../../hooks/mutations/post/use-create-post";
-import PostForm from "../../components/post/post-form";
+import PostForm from "../../components/post/Post-form";
 import { getErrorMessage } from "../../utils/error";
 
 export default function PostCreatePage() {

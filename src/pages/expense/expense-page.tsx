@@ -4,12 +4,12 @@ import {
   useMyScoreData,
 } from "@/hooks/queries/use-expense-data";
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
-import { ExpenseDialog } from "@/components/expense/expense-dialog";
+import { ExpenseDialog } from "@/components/expense/Expense-dialog";
 import type { ExpenseCreateRequest, ExpenseEditRequest } from "@/types/expense";
 import { getErrorMessage } from "@/utils/error";
 import { useCreateExpense } from "@/hooks/mutations/expense/use-create-expense";
-import { ExpenseList } from "@/components/expense/expense-list";
-import ExpenseIncomeItem from "@/components/expense/expense-income-item";
+import { ExpenseList } from "@/components/expense/Expense-list";
+import ExpenseIncomeItem from "@/components/expense/Expense-income-item";
 import { formatYearMonth, SERVICE_START_DATE } from "@/utils/date";
 import { useState } from "react";
 import { useIncomeData } from "@/hooks/queries/use-income-data";
@@ -19,8 +19,8 @@ import { formatAmountInput, parseAmount } from "@/utils/format";
 import { useExpenseDialogStore } from "@/store/expenseStore";
 import { useEditExpense } from "@/hooks/mutations/expense/use-edit-expense";
 import { useDeleteExpense } from "@/hooks/mutations/expense/use-delete-expense";
-import ExpenseGraphScore from "@/components/expense/expense-graph-score";
-import ExpenseGraphCategory from "@/components/expense/expense-graph-type";
+import ExpenseGraphScore from "@/components/expense/Expense-graph-score";
+import ExpenseGraphCategory from "@/components/expense/Expense-graph-type";
 
 export default function Expense() {
   const [currentDate, setCurrentDate] = useState(new Date());
