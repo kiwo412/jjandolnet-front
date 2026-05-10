@@ -30,6 +30,21 @@ export type PostItemProps = {
   onItemClick: (id: number) => void;
 };
 
+export type PostTempCondition = {
+  filter: "title" | "content" | "nickname";
+  keyword: string;
+};
+
+export type PostSearchRequest = PostTempCondition & {
+  page: number;
+};
+
+export type PostFilterProps = {
+  condition: PostTempCondition | undefined;
+  onConditionChange: (newCondition: PostTempCondition) => void;
+  onSearch: () => void;
+};
+
 export type PostCreateRequest = Pick<Post, "title" | "content" | "category">;
 
 export type PostEditRequest = Pick<Post, "id" | "title" | "content">;

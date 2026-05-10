@@ -1,9 +1,14 @@
 import type { ChartSearchCondition } from "@/types/expense";
+import type { PostSearchRequest } from "@/types/post";
 
 export const QUERY_KEYS = {
   post: {
     all: ["post"],
-    list: (page: number) => ["post", "list", { page }],
+    list: (postSearchRequest: PostSearchRequest) => [
+      "post",
+      "list",
+      { ...postSearchRequest },
+    ],
     detail: (postId: number) => ["post", "detail", postId],
   },
   address: {

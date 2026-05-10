@@ -1,22 +1,38 @@
 import { useState } from "react";
-import { Loader } from "lucide-react"; // Assuming Loader is a component from lucide-react
+import { Loader } from "lucide-react";
 import PostItem from "../../components/post/Post-item";
 import { usePosts } from "../../hooks/queries/use-posts-data";
-import type { Post } from "../../types/post";
+import type { Post, PostTempCondition } from "../../types/post";
 import { getIsLogInState } from "../../store/authStore";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import PostFilter from "@/components/post/Post-filter";
 
 export default function PostPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [currentPage, setCurrentPage] = useState(() => {
-    const savedPage = searchParams.get("page");
-    return savedPage ? Number(savedPage) : 0;
+  //검색조건 화면 표시용 state
+  const [tempCondition, setTempCondition] = useState<PostTempCondition>(() => {
+    const filter = (searchParams.get("filter") ||
+      "title") as PostTempCondition["filter"];
+    const keyword = searchParams.get("keyword") || "";
+    return {
+      filter: filter,
+      keyword: keyword,
+    };
   });
 
-  const { data, error, isPending } = usePosts(currentPage);
+  const currentFilter = (searchParams.get("filter") ||
+    "title") as PostTempCondition["filter"];
+  const currentKeyword = searchParams.get("keyword") || "";
+  const currentPage = Number(searchParams.get("page")) || 0;
+
+  const { data, error, isPending } = usePosts({
+    page: currentPage,
+    filter: currentFilter,
+    keyword: currentKeyword,
+  });
 
   if (error)
     return (
@@ -50,17 +66,18 @@ export default function PostPage() {
 
   const pagesToShow = getPageNumbers();
 
-  //예외 값 방어.
-  const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(0, prevPage - 1));
+  const handlePageChange = (pageIdx: number) => {
+    setSearchParams({
+      filter: currentFilter,
+      keyword: currentKeyword,
+      page: pageIdx.toString(),
+    });
   };
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(totalPages - 1, prevPage + 1));
-  };
-
-  const handleDetailPage = ({ id, page }: { id: number; page: number }) => {
-    navigate(`/post/${id}?page=${page}`);
+  const handleDetailPage = (id: number) => {
+    navigate(
+      `/post/${id}?page=${currentPage}&filter=${currentFilter}&keyword=${encodeURIComponent(currentKeyword)}`,
+    );
   };
 
   const handleLoginCheck = () => {
@@ -71,9 +88,27 @@ export default function PostPage() {
     navigate("/post/create");
   };
 
+  const handleSearchClick = () => {
+    alert("검색누름");
+    setSearchParams({
+      filter: tempCondition.filter,
+      keyword: tempCondition.keyword,
+      page: "0",
+    });
+  };
+
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-end w-full">
+      <div className="flex justify-between items-end mb-6 mt-2 ml-1">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-800 tracking-tight">
+            <span className="text-orange-500">
+              짠한 우리들의 이야기 나눠 봐요.
+            </span>
+          </h2>
+          <p className="text-gray-500 text-sm mt-1">오늘 하루도 고생했어요.</p>
+        </div>
+
         <Button
           onClick={handleLoginCheck}
           className="bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all duration-200 tracking-tight active:scale-95"
@@ -81,13 +116,18 @@ export default function PostPage() {
           글쓰기
         </Button>
       </div>
+      <PostFilter
+        condition={tempCondition}
+        onConditionChange={setTempCondition}
+        onSearch={handleSearchClick}
+      />
       <div className="mt-4">
         {content.length > 0 ? (
           content.map((post: Post) => (
             <PostItem
               key={post.id}
               post={post}
-              onItemClick={(id) => handleDetailPage({ id, page: currentPage })}
+              onItemClick={(id) => handleDetailPage(id)}
             />
           ))
         ) : (
@@ -101,7 +141,7 @@ export default function PostPage() {
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-8">
           <button
-            onClick={handlePreviousPage}
+            onClick={() => handlePageChange(Math.max(0, currentPage - 1))}
             disabled={first || isPending}
             className="px-4 py-2 bg-orange-500 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-600 transition-colors"
           >
@@ -112,7 +152,7 @@ export default function PostPage() {
               {pagesToShow.map((pageIdx) => (
                 <button
                   key={pageIdx}
-                  onClick={() => setCurrentPage(pageIdx)}
+                  onClick={() => handlePageChange(pageIdx)}
                   disabled={isPending}
                   className={`px-3 py-1 rounded-md transition-colors ${
                     number === pageIdx
@@ -126,7 +166,9 @@ export default function PostPage() {
             </div>
           </span>
           <button
-            onClick={handleNextPage}
+            onClick={() =>
+              handlePageChange(Math.min(totalPages - 1, currentPage + 1))
+            }
             disabled={last || isPending}
             className="px-4 py-2 bg-orange-500 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-600 transition-colors"
           >

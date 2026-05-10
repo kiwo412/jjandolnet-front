@@ -2,12 +2,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPost, fetchPosts } from "../../api/post";
 import { QUERY_KEYS } from "../../lib/constants";
-import type { PaginatedResponse, Post } from "../../types/post";
+import type {
+  PaginatedResponse,
+  Post,
+  PostSearchRequest,
+} from "../../types/post";
 
-export const usePosts = (page: number) => {
+export const usePosts = (postSearchRequest: PostSearchRequest) => {
   return useQuery<PaginatedResponse<Post>>({
-    queryKey: QUERY_KEYS.post.list(page),
-    queryFn: () => fetchPosts(page),
+    queryKey: QUERY_KEYS.post.list(postSearchRequest),
+    queryFn: () => fetchPosts(postSearchRequest),
     staleTime: 0,
   });
 };

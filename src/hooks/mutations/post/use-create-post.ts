@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { useMutationCallback } from "../../../types/common";
 import { createPost } from "../../../api/post";
-import { QUERY_KEYS } from "../../../lib/constants";
 
 export function useCreatePost(callbacks?: useMutationCallback) {
   const queryClient = useQueryClient();
@@ -10,7 +9,7 @@ export function useCreatePost(callbacks?: useMutationCallback) {
     onSuccess: () => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.post.list(0).slice(0, 2),
+        queryKey: ["post", "list"],
       });
     },
     onError: (error) => {

@@ -1,13 +1,20 @@
-import type { PostCreateRequest, PostEditRequest } from "../types/post";
+import type {
+  PostCreateRequest,
+  PostEditRequest,
+  PostSearchRequest,
+} from "../types/post";
 import api from "./api";
 
-export const fetchPosts = async (page: number) => {
+export const fetchPosts = async (postSearchRequest: PostSearchRequest) => {
+  const { page, filter, keyword } = postSearchRequest;
+
   const response = await api.get("/api/v1/post", {
     params: {
       page: page,
-      //size: size,
       size: 5,
       sort: "createdAt,desc",
+      filter: filter,
+      keyword: keyword,
     },
   });
   return response.data.data;

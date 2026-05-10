@@ -18,7 +18,7 @@ export function useEditMyPage(callbacks?: useMutationCallback) {
 
       const keysToInvalidate = [
         QUERY_KEYS.myPage,
-        QUERY_KEYS.post.list(0).slice(0, 2),
+        ["post", "list"],
         QUERY_KEYS.expense.subChart1(),
       ];
 

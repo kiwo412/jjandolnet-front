@@ -10,7 +10,7 @@ export function useEditPost(callbacks?: useMutationCallback) {
     onSuccess: (_, variables) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.post.list(0).slice(0, 2),
+        queryKey: ["post", "list"],
       });
 
       const postId = variables.id;

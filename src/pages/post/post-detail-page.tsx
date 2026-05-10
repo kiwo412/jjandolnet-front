@@ -3,7 +3,6 @@ import { usePost } from "../../hooks/queries/use-posts-data";
 import { Calendar, Eye, Loader, User } from "lucide-react";
 import { Separator } from "../../components/ui/separator";
 import { useDeletePost } from "../../hooks/mutations/post/use-delete-post";
-import axios from "axios";
 import { useAuthStore } from "../../store/authStore";
 import { getErrorMessage } from "../../utils/error";
 
@@ -59,7 +58,13 @@ export default function PostDetailPage() {
   } = data;
 
   const handleCancel = () => {
-    navigate(`/posts?page=${searchParams.get("page")}`);
+    const page = searchParams.get("page") || "0";
+    const filter = searchParams.get("filter") || "title";
+    const keyword = searchParams.get("keyword") || "";
+
+    navigate(
+      `/posts?page=${page}&filter=${filter}&keyword=${encodeURIComponent(keyword)}`,
+    );
   };
 
   const handleEdit = () => {
