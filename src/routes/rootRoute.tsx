@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import GlobalLayout from "../components/layout/Global-layout";
 import IndexPage from "../pages/Index";
-//import AdminLayout from "../components/layout/admin-layout";
-//import AdminRoutes from "./admin-routes";
 import LoginPage from "../pages/login/Login-page";
 import SignUpPage from "../pages/login/SignUp-page";
 import PostPage from "../pages/post/Post-page";
@@ -11,6 +9,8 @@ import PostDetailPage from "../pages/post/Post-detail-page";
 import PostEditPage from "../pages/post/Post-edit-page";
 import Chart from "../pages/expense/Chart-page";
 import Expense from "../pages/expense/Expense-page";
+import MyPage from "@/pages/myPage/My-page";
+import MyPageEdit from "@/pages/myPage/My-edit-page";
 
 export default function RootRoute() {
   return (
@@ -25,7 +25,8 @@ export default function RootRoute() {
 
         <Route path="/chart" element={<Chart />} />
 
-        {/* <Route element={<AdminLayout />}>{AdminRoutes()}</Route> */}
+        <Route path="/myPage" element={<MyPage />} />
+        <Route path="/myPage/edit" element={<MyPageEdit />} />
 
         <Route path="/" element={<IndexPage />} />
       </Route>

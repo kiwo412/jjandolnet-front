@@ -16,7 +16,6 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { id: "notice", label: "짠한공지", icon: Megaphone },
   { id: "myPage", label: "내 정보", icon: UserCircle },
   { id: "expense", label: "짠돌력", icon: PiggyBank },
   { id: "posts", label: "짠한 게시판", icon: LayoutList },

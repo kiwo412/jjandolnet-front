@@ -42,6 +42,30 @@ export const formatMonth = (date: Date) => {
   return `${month}`;
 };
 
+/*
+ * YYYY-MM-DD 형식의 문자열 만나이 계산
+ */
+
+export const getKoreanAge = (birthDateStr: string) => {
+  if (!birthDateStr) return "";
+
+  const birthDate = new Date(birthDateStr);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  // 아직 생일이 지나지 않았을 경우 1살을 뺌
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return `(만 ${age}세)`;
+};
+
 /**
  * 서비스 시작일 (2026년 1월 1일)
  * 2026-01-01 이전은 추후 지원 예정 정책

@@ -24,6 +24,8 @@ export const useAuthStore = create(
             false,
             "auth/setToken",
           ),
+        setNickname: (nickname: string) =>
+          set({ nickname }, false, "auth/setNickname"),
         logout: () =>
           set(
             {
@@ -41,10 +43,14 @@ export const useAuthStore = create(
   ),
 );
 
-//훅 - 셀렉터 - 리렌더링
+//훅 - 셀렉터 - 리렌더링 - 컴포넌트 내부용
 export const useToken = () => {
   const setAccessToken = useAuthStore((state) => state.setToken);
   return setAccessToken;
+};
+
+export const useSetNickname = () => {
+  return useAuthStore((state) => state.setNickname);
 };
 
 export const useLogout = () => {
@@ -54,11 +60,14 @@ export const useLogout = () => {
 
 export const useNickname = () => useAuthStore((state) => state.nickname);
 
-//정적방식 - 값을 가져가고, 변하게도 하지만, 리렌더링 안일어남
+//정적방식 - 값을 가져가고, 변하게도 하지만, 리렌더링 안일어남 - 일반 JS/TS 함수나 mutation onSuccess용
 export const getAccessToken = () => useAuthStore.getState().accessToken;
 export const getIsLogInState = () => useAuthStore.getState().isLogInState;
 export const getUuid = () => useAuthStore.getState().uuid;
 export const getNickname = () => useAuthStore.getState().nickname;
+export const setNickname = (nickname: string) => {
+  useAuthStore.getState().setNickname(nickname);
+};
 
 //새로고침 액세스 토큰 처리
 //추후에 localstorage 쓸지 좀더 생각하기

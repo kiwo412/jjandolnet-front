@@ -37,6 +37,5 @@ export const QUERY_KEYS = {
     all: ["income"],
     list: (month: string) => ["income", "list", month],
   },
+  myPage: ["myPage"],
 };
-
-export const BUCKET_NAME = "uploads";
