@@ -5,6 +5,7 @@ import { Separator } from "../../components/ui/separator";
 import { useDeletePost } from "../../hooks/mutations/post/use-delete-post";
 import { useAuthStore } from "../../store/authStore";
 import { getErrorMessage } from "../../utils/error";
+import CommentForm from "@/components/post/Comment-form";
 
 export default function PostDetailPage() {
   const navigate = useNavigate();
@@ -116,6 +117,10 @@ export default function PostDetailPage() {
           </div>
 
           <Separator className="my-10 bg-gray-300" />
+
+          <section className="mt-10">
+            <CommentForm postId={postId} />
+          </section>
 
           <div className="flex justify-end mt-4 gap-3">
             {postUuid === uuid && (

@@ -1,4 +1,7 @@
 import type {
+  CommentCreateRequest,
+  CommentDeleteRequest,
+  CommentEditRequest,
   PostCreateRequest,
   PostEditRequest,
   PostSearchRequest,
@@ -25,13 +28,41 @@ export const fetchPost = async (postId: number) => {
   return response.data.data;
 };
 
+export const fetchComments = async (postId: number, page: number = 0) => {
+  const response = await api.get(`/api/v1/post/${postId}/comments`, {
+    params: {
+      page: page,
+      size: 10,
+      sort: "createdAt,asc",
+    },
+  });
+
+  return response.data.data;
+};
+
 export const createPost = async (post: PostCreateRequest) => {
   const response = await api.post("/api/v1/post", post);
   return response.data;
 };
 
+export const createComment = async (comment: CommentCreateRequest) => {
+  const response = await api.post(
+    `/api/v1/post/${comment.postId}/comment`,
+    comment,
+  );
+  return response.data;
+};
+
 export const editPost = async (post: PostEditRequest) => {
   const response = await api.put("/api/v1/post", post);
+  return response.data;
+};
+
+export const editComment = async (comment: CommentEditRequest) => {
+  const response = await api.put(
+    `/api/v1/post/${comment.postId}/comment/${comment.id}`,
+    comment,
+  );
   return response.data;
 };
 
@@ -52,4 +83,11 @@ export const deletePost = async (postId: number) => {
 
   //   throw error;
   // }
+};
+
+export const deleteComment = async (comment: CommentDeleteRequest) => {
+  const response = await api.delete(
+    `/api/v1/post/${comment.postId}/comment/${comment.id}`,
+  );
+  return response.data;
 };

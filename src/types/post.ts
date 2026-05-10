@@ -45,8 +45,34 @@ export type PostFilterProps = {
   onSearch: () => void;
 };
 
+export type CommentCreateRequest = {
+  postId: number;
+  content: string;
+};
+
+export type Comment = {
+  id: number;
+  nickname: string;
+  uuid: string;
+  content: string;
+  createdAt: string;
+};
+
+export type CommentItemProps = {
+  comment: Comment;
+  postId: number;
+};
+
+export type CommentEditRequest = {
+  id: number;
+  postId: number;
+  content: string;
+};
+
 export type PostCreateRequest = Pick<Post, "title" | "content" | "category">;
 
 export type PostEditRequest = Pick<Post, "id" | "title" | "content">;
+
+export type CommentDeleteRequest = Omit<CommentEditRequest, "content">;
 
 export type category = "FREE" | "NOTICE";

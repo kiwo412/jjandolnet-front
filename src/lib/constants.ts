@@ -10,6 +10,7 @@ export const QUERY_KEYS = {
       { ...postSearchRequest },
     ],
     detail: (postId: number) => ["post", "detail", postId],
+    comment: (postId: number) => ["post", "comment", postId],
   },
   address: {
     list: () => ["address", "list"],
