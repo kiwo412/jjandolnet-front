@@ -16,3 +16,9 @@ export const findId = async (data: FindIdRequest) => {
   const response = await api.post("/api/v1/user/findEmail", data);
   return response.data.data;
 };
+
+export const sendTempPw = async (email: string) => {
+  const param = { email: email };
+  const response = await api.post("/api/v1/mail/sendTempPw", param);
+  return response.data.data;
+};

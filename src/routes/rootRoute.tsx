@@ -13,6 +13,7 @@ import MyPage from "@/pages/myPage/My-page";
 import MyPageEdit from "@/pages/myPage/My-edit-page";
 import FindIdPage from "@/pages/login/FindId-page";
 import FindIdSuccessPage from "@/pages/login/FindId-success-page";
+import FindPwPage from "@/pages/login/FindPw-page ";
 
 export default function RootRoute() {
   return (
@@ -36,6 +37,7 @@ export default function RootRoute() {
       <Route path="/signUp" element={<SignUpPage />} />
       <Route path="/findId" element={<FindIdPage />} />
       <Route path="/findId/success" element={<FindIdSuccessPage />} />
+      <Route path="/findPw" element={<FindPwPage />} />
     </Routes>
   );
 }

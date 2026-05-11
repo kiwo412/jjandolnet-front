@@ -111,10 +111,7 @@ export default function LoginPage() {
             아이디 찾기
           </Link>
           <span className="w-px h-2 bg-gray-200" />
-          <Link
-            to="/find-password"
-            className="hover:text-gray-600 transition-colors"
-          >
+          <Link to="/findPw" className="hover:text-gray-600 transition-colors">
             비밀번호 찾기
           </Link>
         </div>
