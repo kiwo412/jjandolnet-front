@@ -4,6 +4,7 @@ import { useSignInWithPassword } from "../../hooks/mutations/auth/use-sign-in-wi
 import type { LoginRequest, Token } from "../../types/auth";
 import { useForm } from "react-hook-form";
 import { useAuthStore } from "../../store/authStore";
+import IndexBackButton from "@/components/index/index-back-button";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-start min-h-[calc(100vh-16rem)] p-4 pt-20 sm:pt-32">
       <div className="w-full max-w-[400px] p-8 bg-white border border-gray-100 rounded-3xl shadow-sm">
+        <IndexBackButton />
         <div className="flex flex-col items-center mb-8 text-center">
           <TempJjandolLogo />
         </div>
@@ -105,10 +107,7 @@ export default function LoginPage() {
             회원가입
           </Link>
           <span className="w-px h-2 bg-gray-200" />
-          <Link
-            to="/find-email"
-            className="hover:text-gray-600 transition-colors"
-          >
+          <Link to="/findId" className="hover:text-gray-600 transition-colors">
             아이디 찾기
           </Link>
           <span className="w-px h-2 bg-gray-200" />

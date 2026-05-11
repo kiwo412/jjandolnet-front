@@ -10,6 +10,8 @@ export type User = {
 
 export type LoginRequest = Pick<User, "email" | "password">;
 
+export type FindIdRequest = Omit<User, "email" | "password" | "nickname">;
+
 export type Token = {
   accessToken: string;
   grantType: string;

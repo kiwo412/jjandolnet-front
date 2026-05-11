@@ -52,7 +52,7 @@ export default function IndexPage() {
           <span className="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-gray-100">
             💡
           </span>
-          짠돌이가 된다면 이런 걸 이용할 수 있어요
+          짠돌이가 된다면 아래 서비스를 이용할 수 있어요
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <FeatureCard

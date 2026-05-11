@@ -9,6 +9,7 @@ import {
   useSignUpAddrData,
   useSignUpJobData,
 } from "../../hooks/queries/use-sign-up-data";
+import IndexBackButton from "@/components/index/index-back-button";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ export default function SignUpPage() {
   return (
     <div className="flex flex-col items-center justify-start min-h-[calc(100vh-16rem)] p-4 pt-10 sm:pt-20">
       <div className="w-full max-w-[450px] p-8 bg-white border border-gray-100 rounded-3xl shadow-sm">
+        <IndexBackButton />
         <div className="mb-8 text-center">
           <div className="flex flex-col items-center mb-8 text-center">
             <TempJjandolLogo />

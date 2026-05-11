@@ -89,7 +89,6 @@ export default function PostPage() {
   };
 
   const handleSearchClick = () => {
-    alert("검색누름");
     setSearchParams({
       filter: tempCondition.filter,
       keyword: tempCondition.keyword,

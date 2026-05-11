@@ -11,6 +11,8 @@ import Chart from "../pages/expense/Chart-page";
 import Expense from "../pages/expense/Expense-page";
 import MyPage from "@/pages/myPage/My-page";
 import MyPageEdit from "@/pages/myPage/My-edit-page";
+import FindIdPage from "@/pages/login/FindId-page";
+import FindIdSuccessPage from "@/pages/login/FindId-success-page";
 
 export default function RootRoute() {
   return (
@@ -32,6 +34,8 @@ export default function RootRoute() {
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signUp" element={<SignUpPage />} />
+      <Route path="/findId" element={<FindIdPage />} />
+      <Route path="/findId/success" element={<FindIdSuccessPage />} />
     </Routes>
   );
 }
