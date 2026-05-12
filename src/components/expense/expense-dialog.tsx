@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import type { ExpenseCreateRequest, ExpenseDialogProps } from "@/types/expense";
 import { formatAmountInput, parseAmount } from "@/utils/format";
@@ -88,6 +89,7 @@ export function ExpenseDialog({
       <DialogContent className="sm:max-w-[425px] bg-white rounded-2xl">
         <DialogHeader className="flex flex-col items-center justify-center">
           <DialogTitle className="text-xl font-bold text-orange-600 text-center">
+            <DialogDescription />
             {isEditMode ? "소비내역 수정" : "소비내역 등록"}
           </DialogTitle>
         </DialogHeader>

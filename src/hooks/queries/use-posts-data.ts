@@ -33,5 +33,6 @@ export const useInfiniteComments = (postId: number) => {
       return lastPage.last ? undefined : lastPage.number + 1;
     },
     staleTime: 0,
+    gcTime: 0,
   });
 };

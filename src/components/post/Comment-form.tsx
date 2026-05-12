@@ -2,6 +2,7 @@ import { useCreateComment } from "@/hooks/mutations/post/use-create-post";
 import { getErrorMessage } from "@/utils/error";
 import { useState } from "react";
 import CommentList from "./Comment-list";
+import { getAccessToken } from "@/store/authStore";
 
 export default function CommentForm({ postId }: { postId: number }) {
   const [content, setContent] = useState("");
@@ -17,6 +18,8 @@ export default function CommentForm({ postId }: { postId: number }) {
 
   const handleCreateComment = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!getAccessToken()) return alert("로그인이 필요합니다!");
+    if (!content.trim()) return alert("내용을 입력해주세요.");
     mutate({ postId, content });
     setContent("");
   };

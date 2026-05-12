@@ -1,10 +1,12 @@
 import type { User, LoginRequest } from "../types/auth";
 
+const BASE_URL = "http://localhost:8080";
+
 //fetch방식
 export async function signUp(user: User) {
   //const response = await axios.post('http://localhost:8080/api/v1/user/signup', user);
   //const { data, error } = await supabase.auth.supabaseApiEx
-  const response = await fetch("http://localhost:8080/api/v1/user/signup", {
+  const response = await fetch(`${BASE_URL}/api/v1/user/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,14 +15,15 @@ export async function signUp(user: User) {
   });
 
   if (!response.ok) {
-    throw new Error(`${response.status}`);
+    const errorData = await response.json();
+    throw new Error(errorData.message || `Error: ${response.status}`);
   }
 
   return await response.json();
 }
 
 export async function signInWithPassword(loginRequest: LoginRequest) {
-  const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+  const response = await fetch(`${BASE_URL}/api/v1/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -40,7 +43,7 @@ export async function signInWithPassword(loginRequest: LoginRequest) {
 }
 
 export async function refresh() {
-  const response = await fetch("http://localhost:8080/api/v1/auth/refresh", {
+  const response = await fetch(`${BASE_URL}/api/v1/auth/refresh`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -57,7 +60,7 @@ export async function refresh() {
 }
 
 export async function logout() {
-  const response = await fetch("http://localhost:8080/api/v1/auth/logout", {
+  const response = await fetch(`${BASE_URL}/api/v1/auth/logout`, {
     method: "POST",
     credentials: "include",
     headers: {

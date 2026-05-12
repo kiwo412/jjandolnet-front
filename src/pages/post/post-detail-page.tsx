@@ -112,7 +112,7 @@ export default function PostDetailPage() {
 
           <Separator className="mb-10 bg-gray-300" />
 
-          <div className="prose prose-orange max-w-none min-h-[300px] text-gray-800 leading-relaxed text-lg">
+          <div className="whitespace-pre-wrap prose prose-orange max-w-none min-h-[300px] text-gray-800 leading-relaxed text-lg">
             {content}
           </div>
 

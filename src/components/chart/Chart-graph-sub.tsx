@@ -14,8 +14,10 @@ export default function ChartGraphSub1({
   const category = data?.category;
   const message = data?.message ?? "데이터를 불러올 수 없습니다.";
   const percent = data?.percent ?? 0;
-  const categoryAverage = (data?.categoryAverage ?? 0).toLocaleString();
-  const myTotal = (data?.myTotal ?? 0).toLocaleString();
+  // const categoryAverage = (data?.categoryAverage ?? 0).toLocaleString();
+  // const myTotal = (data?.myTotal ?? 0).toLocaleString();
+  const categoryAverage = String(data?.categoryAverage ?? 0);
+  const myTotal = String(data?.myTotal ?? 0);
 
   const nickname = getNickname();
 
@@ -65,7 +67,7 @@ export default function ChartGraphSub1({
               </PieChart>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="font-bold text-gray-900 text-xl">
-                  {percent}%
+                  {Number((100 - (percent || 0)).toFixed(1))}%
                 </span>
               </div>
             </div>

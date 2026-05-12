@@ -45,6 +45,10 @@ export default function ChartGraphMain({
               <p className="font-bold text-[15px]">문제가 생겼습니다.</p>
               <p className="text-sm text-gray-400">관리자에게 문의 바랍니다.</p>
             </div>
+          ) : isPending ? (
+            <div className="h-[350px] flex items-center justify-center">
+              <Loader className="animate-spin text-orange-500" />
+            </div>
           ) : data.length === 0 ? (
             <div className="h-[350px] flex flex-col items-center justify-center space-y-3">
               <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-2">
@@ -62,11 +66,6 @@ export default function ChartGraphMain({
               style={{ width: `${chartWidth}px` }}
               className="h-[350px] p-6 relative"
             >
-              {isPending && (
-                <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
-                  <Loader className="animate-spin text-orange-500" />
-                </div>
-              )}
               <ResponsiveContainer
                 width="100%"
                 height="100%"
@@ -110,10 +109,7 @@ export default function ChartGraphMain({
                     minPointSize={5}
                   >
                     {data.map((_, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={index === 3 ? "#FF4500" : "#ffedd5"}
-                      />
+                      <Cell key={`cell-${index}`} fill={"#fed7aa"} />
                     ))}
                   </Bar>
                 </BarChart>

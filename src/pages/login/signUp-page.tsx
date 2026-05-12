@@ -10,6 +10,7 @@ import {
   useSignUpJobData,
 } from "../../hooks/queries/use-sign-up-data";
 import IndexBackButton from "@/components/index/index-back-button";
+import { getErrorMessage } from "@/utils/error";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ export default function SignUpPage() {
       alert("회원가입이 완료되었습니다!");
       navigate("/login", { replace: true });
     },
-    onError: () => {
-      alert("회원가입에 실패했습니다. 관리자 문의 : kiwo412@google.com");
+    onError: (error) => {
+      const message = getErrorMessage(error, "회원 가입에 실패했습니다.");
+      alert(message);
     },
   });
 
