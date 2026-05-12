@@ -1,5 +1,3 @@
-// 상단 생략... (import 부분에 useSendTempPw 등 필요한 훅 추가)
-
 import IndexBackButton from "@/components/index/index-back-button";
 import TempJjandolLogo from "@/components/ui/tempJjandolLogo";
 import { useSendTempPw } from "@/hooks/mutations/auth/use-find";

@@ -126,7 +126,7 @@ export default function PostDetailPage() {
             {postUuid === uuid && (
               <div className="flex gap-3">
                 <button
-                  //disabled={isPending || isEditPending}
+                  disabled={isPending || isDeletePending}
                   onClick={handleEdit}
                   className="cursor-pointer bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-orange-700 transition-all duration-200 tracking-tight active:scale-95"
                 >
@@ -143,7 +143,7 @@ export default function PostDetailPage() {
               </div>
             )}
             <button
-              //disabled={isPending || isDeletePostPending}
+              disabled={isPending || isDeletePending}
               onClick={handleCancel}
               className="cursor-pointer bg-white text-orange-600 border-2 border-orange-600 font-bold text-lg px-6 py-3 rounded-xl hover:bg-orange-50 transition-all duration-200 tracking-tight"
             >

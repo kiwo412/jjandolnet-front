@@ -136,7 +136,6 @@ export default function PostPage() {
         )}
       </div>
 
-      {/* pagenation */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-8">
           <button

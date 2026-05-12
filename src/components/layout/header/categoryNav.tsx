@@ -1,6 +1,5 @@
 import { getIsLogInState } from "@/store/authStore";
 import {
-  Megaphone,
   UserCircle,
   PiggyBank,
   LayoutList,

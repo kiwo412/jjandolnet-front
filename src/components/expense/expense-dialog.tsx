@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getTodayDate, SERVICE_START_DATE } from "@/utils/date";
+import { useState } from "react";
+import { getTodayDate } from "@/utils/date";
 import {
   Dialog,
   DialogContent,

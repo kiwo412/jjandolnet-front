@@ -20,8 +20,6 @@ import {
 import { useEditMyPage } from "@/hooks/mutations/myPage/use-edit-myPage";
 import { getErrorMessage } from "@/utils/error";
 
-// 폼 데이터 타입 정의
-
 export default function MyPageEdit() {
   const navigate = useNavigate();
   const currentNickname = getNickname();
