@@ -1,6 +1,11 @@
-import axios from "axios";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "../store/authStore";
 import { refresh } from "./auth";
+import type { Token } from "@/types/auth";
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
 
 const api = axios.create({
   baseURL: "http://localhost:8080/",
@@ -17,23 +22,44 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
+  //액세스 토큰 만료시 응답
+  //리프레시 토큰으로 액세스 토큰 새로 받은 후 요청 재전송
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const {
+      config,
+      response: { data },
+    } = error;
 
-    // 401 에러(토큰 만료)가 발생했을 때
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+    const originalRequest = config as CustomAxiosRequestConfig;
 
+    if (data.code === "T002") {
       try {
-        const newToken = await refresh();
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return api(originalRequest); // 원래 하려던 요청 재시도
+        if (originalRequest._retry) {
+          useAuthStore.getState().logout();
+          return Promise.reject(new Error("재시도 한계 초과"));
+        }
+
+        originalRequest._retry = true;
+
+        const refreshResponse = await refresh();
+        const tokenData: Token = refreshResponse.data.data;
+
+        if (tokenData && tokenData.accessToken) {
+          useAuthStore.getState().setToken(tokenData);
+
+          originalRequest.headers.Authorization = `Bearer ${tokenData.accessToken}`;
+
+          return api(originalRequest);
+        }
       } catch (err) {
         // 리프레시도 실패하면 로그아웃 처리
+        useAuthStore.getState().logout();
+
         return Promise.reject(err);
       }
     }
+
     return Promise.reject(error);
   },
 );

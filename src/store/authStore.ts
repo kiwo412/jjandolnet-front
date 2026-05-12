@@ -77,14 +77,20 @@ export const authRefreshActions = {
   // 새로고침 시 호출할 초기화 함수
   rehydrate: async () => {
     try {
-      // 1. 서버의 refresh 엔드포인트 호출 (쿠키는 브라우저가 자동으로 보냄)
+      //서버의 refresh 엔드포인트 호출 (쿠키는 브라우저가 자동으로 보냄)
       const res = await refresh();
       const token: Token = res.data.data;
 
-      // 2. 성공하면 스토어에 토큰 채우기
+      //응답이 리프레시 토큰이 없다고 오면 로그인을 안한 것이므로.
+      if (res.data.status === "REFRESH_FAIL") {
+        useAuthStore.getState().logout();
+        return;
+      }
+
+      //성공하면 스토어에 토큰 채우기
       useAuthStore.getState().setToken(token);
     } catch (error) {
-      // 3. 실패하면 (로그인 만료 등) 깨끗이 비우기
+      //실패하면 (로그인 만료 등) 깨끗이 비우기
       useAuthStore.getState().logout();
     }
   },
