@@ -9,7 +9,7 @@ import {
   useSignUpAddrData,
   useSignUpJobData,
 } from "../../hooks/queries/use-sign-up-data";
-import IndexBackButton from "@/components/index/index-back-button";
+import IndexBackButton from "@/components/index/Index-back-button";
 import { getErrorMessage } from "@/utils/error";
 
 export default function SignUpPage() {

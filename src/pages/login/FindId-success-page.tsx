@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import TempJjandolLogo from "../../components/ui/tempJjandolLogo";
 import { MailCheck } from "lucide-react";
-import IndexBackButton from "@/components/index/index-back-button";
+import IndexBackButton from "@/components/index/Index-back-button";
 
 export default function FindIdSuccessPage() {
   const location = useLocation();

@@ -110,7 +110,12 @@ export default function MyPageEdit() {
                 message: "최대 10자까지만 가능합니다.",
               },
             })}
-            disabled={isMyPagePending || isAddrPending || isJobPending}
+            disabled={
+              isMyPagePending ||
+              isAddrPending ||
+              isJobPending ||
+              isEditMyPagePending
+            }
             className={`w-full px-4 py-3 rounded-xl border ${errors.nickname ? "border-red-500" : "border-gray-200"} focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all`}
           />
           {errors.nickname && (
@@ -129,7 +134,12 @@ export default function MyPageEdit() {
                   message: "비밀번호는 최소 8자 이상이어야 합니다.",
                 },
               })}
-              disabled={isMyPagePending || isAddrPending || isJobPending}
+              disabled={
+                isMyPagePending ||
+                isAddrPending ||
+                isJobPending ||
+                isEditMyPagePending
+              }
               placeholder="변경할 비밀번호 (미입력 시 유지)"
               className={`w-full px-4 py-3 rounded-xl border ${errors.password ? "border-red-500" : "border-gray-200"} focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all`}
             />
@@ -148,7 +158,12 @@ export default function MyPageEdit() {
                   value === password ||
                   "비밀번호가 일치하지 않습니다.",
               })}
-              disabled={isMyPagePending || isAddrPending || isJobPending}
+              disabled={
+                isMyPagePending ||
+                isAddrPending ||
+                isJobPending ||
+                isEditMyPagePending
+              }
               placeholder="한 번 더 입력해주세요"
               className={`w-full px-4 py-3 rounded-xl border ${errors.confirmPassword ? "border-red-500" : "border-gray-200"} focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all`}
             />
@@ -170,7 +185,11 @@ export default function MyPageEdit() {
                 {j.name}
               </option>
             ))}
-            disabled={isMyPagePending || isAddrPending || isJobPending}
+            disabled=
+            {isMyPagePending ||
+              isAddrPending ||
+              isJobPending ||
+              isEditMyPagePending}
           </select>
           {errors.jobId && <ErrorMessage message={errors.jobId.message} />}
         </div>
@@ -187,7 +206,11 @@ export default function MyPageEdit() {
                 {a.name}
               </option>
             ))}
-            disabled={isMyPagePending || isAddrPending || isJobPending}
+            disabled=
+            {isMyPagePending ||
+              isAddrPending ||
+              isJobPending ||
+              isEditMyPagePending}
           </select>
           {errors.addressId && (
             <ErrorMessage message={errors.addressId.message} />
@@ -196,7 +219,12 @@ export default function MyPageEdit() {
 
         <div className="flex gap-3 pt-4">
           <button
-            disabled={isMyPagePending || isAddrPending || isJobPending}
+            disabled={
+              isMyPagePending ||
+              isAddrPending ||
+              isJobPending ||
+              isEditMyPagePending
+            }
             type="submit"
             className="flex-1 py-4 rounded-xl font-bold text-white bg-orange-600 hover:bg-orange-700 shadow-md transition-all active:scale-95 flex items-center justify-center gap-2"
           >
@@ -204,7 +232,12 @@ export default function MyPageEdit() {
             저장하기
           </button>
           <button
-            disabled={isMyPagePending || isAddrPending || isJobPending}
+            disabled={
+              isMyPagePending ||
+              isAddrPending ||
+              isJobPending ||
+              isEditMyPagePending
+            }
             type="button"
             onClick={() => navigate(-1)}
             className="flex-1 py-4 rounded-xl font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all"

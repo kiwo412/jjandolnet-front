@@ -10,7 +10,7 @@ import {
 } from "../../hooks/queries/use-sign-up-data";
 import { getErrorMessage } from "@/utils/error";
 import { useFindId } from "@/hooks/mutations/auth/use-find";
-import IndexBackButton from "@/components/index/index-back-button";
+import IndexBackButton from "@/components/index/Index-back-button";
 
 export default function FindIdPage() {
   const navigate = useNavigate();

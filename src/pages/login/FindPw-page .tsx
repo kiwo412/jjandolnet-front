@@ -1,4 +1,4 @@
-import IndexBackButton from "@/components/index/index-back-button";
+import IndexBackButton from "@/components/index/Index-back-button";
 import TempJjandolLogo from "@/components/ui/tempJjandolLogo";
 import { useSendTempPw } from "@/hooks/mutations/auth/use-find";
 import { getErrorMessage } from "@/utils/error";

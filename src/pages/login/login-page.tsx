@@ -4,7 +4,7 @@ import { useSignInWithPassword } from "../../hooks/mutations/auth/use-sign-in-wi
 import type { LoginRequest, Token } from "../../types/auth";
 import { useForm } from "react-hook-form";
 import { useAuthStore } from "../../store/authStore";
-import IndexBackButton from "@/components/index/index-back-button";
+import IndexBackButton from "@/components/index/Index-back-button";
 
 export default function LoginPage() {
   const navigate = useNavigate();
