@@ -14,25 +14,30 @@ import MyPageEdit from "@/pages/myPage/My-edit-page";
 import FindIdPage from "@/pages/login/FindId-page";
 import FindIdSuccessPage from "@/pages/login/FindId-success-page";
 import FindPwPage from "@/pages/login/FindPw-page ";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function RootRoute() {
   return (
     <Routes>
       <Route element={<GlobalLayout />}>
         <Route path="/posts" element={<PostPage />} />
-        <Route path="/post/create" element={<PostCreatePage />} />
-        <Route path="/post/edit/:id" element={<PostEditPage />} />
         <Route path="/post/:id" element={<PostDetailPage />} />
 
-        <Route path="/expense" element={<Expense />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/post/create" element={<PostCreatePage />} />
+          <Route path="/post/edit/:id" element={<PostEditPage />} />
 
-        <Route path="/chart" element={<Chart />} />
+          <Route path="/expense" element={<Expense />} />
 
-        <Route path="/myPage" element={<MyPage />} />
-        <Route path="/myPage/edit" element={<MyPageEdit />} />
+          <Route path="/chart" element={<Chart />} />
+
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage/edit" element={<MyPageEdit />} />
+        </Route>
 
         <Route path="/" element={<IndexPage />} />
       </Route>
+
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signUp" element={<SignUpPage />} />
       <Route path="/findId" element={<FindIdPage />} />
