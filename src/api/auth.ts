@@ -1,6 +1,6 @@
 import type { User, LoginRequest } from "../types/auth";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 //fetch방식
 export async function signUp(user: User) {
