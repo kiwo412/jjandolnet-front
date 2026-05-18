@@ -44,7 +44,7 @@ export default function ChartGraphSub1({
             </p>
           </div>
         ) : (
-          <div className="w-full flex flex-col md:flex-row items-center gap-8">
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             <div className="relative flex-shrink-0 w-32 h-32 flex items-center justify-center">
               <PieChart width={128} height={128}>
                 <Pie

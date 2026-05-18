@@ -64,56 +64,51 @@ export default function ChartGraphMain({
           ) : (
             <div
               style={{ width: `${chartWidth}px` }}
-              className="h-[350px] p-6 relative"
+              className="h-[350px] p-6 mx-auto"
             >
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-                initialDimension={{ width: 1, height: 1 }}
+              <BarChart
+                width={chartWidth - 48}
+                height={300}
+                data={data}
+                margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
               >
-                <BarChart
-                  data={data}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f0f0f0"
+                />
+                <XAxis
+                  dataKey="category"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#9ca3af", fontSize: 12 }}
+                  dy={10}
+                  interval={0}
+                />
+                <YAxis hide />
+                <Tooltip
+                  cursor={{ fill: "#f9fafb" }}
+                  contentStyle={{
+                    borderRadius: "12px",
+                    border: "none",
+                    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+                  }}
+                  formatter={(value: any) => [
+                    `${Number(value).toLocaleString()}원`,
+                    "평균 소비",
+                  ]}
+                />
+                <Bar
+                  dataKey="average"
+                  radius={[10, 10, 0, 0]}
+                  barSize={40}
+                  minPointSize={5}
                 >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    stroke="#f0f0f0"
-                  />
-                  <XAxis
-                    dataKey="category"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "#9ca3af", fontSize: 12 }}
-                    dy={10}
-                    interval={0}
-                    padding={{ left: 10, right: 10 }}
-                  />
-                  <YAxis hide />
-                  <Tooltip
-                    cursor={{ fill: "#f9fafb" }}
-                    contentStyle={{
-                      borderRadius: "12px",
-                      border: "none",
-                      boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
-                    }}
-                    formatter={(value: any) => [
-                      `${Number(value).toLocaleString()}원`,
-                      "평균 소비",
-                    ]}
-                  />
-                  <Bar
-                    dataKey="average"
-                    radius={[10, 10, 0, 0]}
-                    barSize={40}
-                    minPointSize={5}
-                  >
-                    {data.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={"#fed7aa"} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+                  {data.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={"#fed7aa"} />
+                  ))}
+                </Bar>
+              </BarChart>
             </div>
           )}
         </div>
