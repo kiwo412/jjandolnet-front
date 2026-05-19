@@ -18,8 +18,8 @@ export default function ExpenseIncomeItem({
 
   return (
     <div className="w-full bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 flex-shrink-0">
+      <div className="flex flex-col md:flex-row md:items-center gap-4">
+        <div className="flex items-center gap-2 flex-shrink-0 w-full md:w-auto">
           <div className="p-2 bg-green-50 rounded-lg">
             <Wallet className="w-5 h-5 text-green-600" />
           </div>

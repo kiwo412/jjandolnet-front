@@ -33,7 +33,8 @@ export function CategoryNav() {
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 py-8 bg-white shadow-sm rounded-xl">
+    //<div className="flex flex-wrap justify-center gap-4 py-8 bg-white shadow-sm rounded-xl">
+    <div className="grid grid-cols-2 justify-center place-items-center content-center sm:flex sm:flex-wrap sm:justify-center gap-4 py-8 bg-white shadow-sm rounded-xl">
       {categories.map((category) => (
         <button
           onClick={() => handleNavigate(category.id)}

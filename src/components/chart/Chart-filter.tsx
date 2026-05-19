@@ -20,7 +20,7 @@ export default function ChartFilter({
   return (
     <Card className="border-2 border-gray-100 rounded-[20px] shadow-sm bg-white overflow-hidden">
       <CardContent className="p-3 px-5">
-        <div className="flex flex-row items-center justify-between h-11">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between h-auto md:h-11 gap-3 md:gap-0">
           <div className="flex items-center gap-2 flex-shrink-0">
             <div className="w-1.5 h-4 bg-orange-500 rounded-full" />
             <span className="text-[15px] font-extrabold text-gray-800">
@@ -28,11 +28,11 @@ export default function ChartFilter({
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-2.5 md:gap-6 w-full md:w-auto">
             <RadioGroup
               value={filter}
               onValueChange={(value) => onFilterChange(value as any)}
-              className="grid grid-cols-3 gap-1 bg-gray-100/80 p-1 rounded-[12px] w-[400px] leading-none"
+              className="grid grid-cols-3 gap-1 bg-gray-100/80 p-1 rounded-[12px] w-full md:w-[400px] leading-none"
             >
               {[
                 { id: "age", label: "나이", value: "age" },
@@ -59,7 +59,7 @@ export default function ChartFilter({
               ))}
             </RadioGroup>
 
-            <div className="w-[160px]">
+            <div className="w-full md:w-[160px] flex-shrink-0">
               <Select value={selectedCategory} onValueChange={onCategoryChange}>
                 <SelectTrigger className="w-full rounded-[12px] border-gray-200 bg-white text-[13px] font-bold focus:ring-orange-500 h-9 px-3">
                   <SelectValue placeholder="소비 항목" />
